@@ -8,20 +8,27 @@
 import SwiftUI
 
 struct QuestionView: View {
+    @EnvironmentObject private var questionModel: QuestionViewModel
+    @EnvironmentObject private var loginViewModel: LoginViewModel
+    
     @State private var currentTime = Date()
     @State private var isShowingAnsweringView = false
+    
     @State private var isShowingLoginAlert = false
     @State private var isLogin = false
-    
     private var userNickname: String {
         if isLogin {
-            return "User"
+            let userEmail = loginViewModel.userInfo?.email ?? "Unknown@"
+            let nickName = userEmail.split(separator: "@").first ?? "Unknown"
+            
+            return String(nickName)
         } else {
             return "Unknown"
         }
     }
     
     @State var dummyQuestion = "struct와 class의 차이를 설명하시오."
+    @State var question = ""
     @AppStorage("isSubmitAnswer") var isSubmitAnswer: Bool = false
     
     private let screenWidth = UIScreen.main.bounds.size.width
@@ -61,19 +68,25 @@ struct QuestionView: View {
             
             Spacer()
             
-            // Firebase에서 문제 받아서와서 나타내기
             HStack {
                 Rectangle()
                     .fill(Color.background2)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay {
-                        Text("\(dummyQuestion)")
+                        Text("\(question)")
                             .font(.title)
                             .fontDesign(.monospaced)
                             .foregroundStyle(Color.accent)
                             .padding()
+                            .multilineTextAlignment(.center)
                             .minimumScaleFactor(0.5)
                     }
+            }
+            .onAppear {
+                Task {
+                    await questionModel.fetchQuestions()
+                    question = questionModel.getRandomQuestion().question
+                }
             }
             
             Spacer()
@@ -113,8 +126,12 @@ struct QuestionView: View {
         }
         .padding()
         .background(Color.backGround)
+        .onAppear {
+            isLogin = loginViewModel.isSignedIn
+        }
+        
         .sheet(isPresented: $isShowingAnsweringView) {
-            AnsweringView(question: $dummyQuestion, isSubmitAnswer: $isSubmitAnswer)
+            AnsweringView(question: $question, isSubmitAnswer: $isSubmitAnswer)
         }
         
         .alert("로그인 하시겠습니까?", isPresented: $isShowingLoginAlert) {
@@ -123,9 +140,9 @@ struct QuestionView: View {
             })
             
             Button(action: {
-                // MARK: - 구글 로그인
-                print("구글 로그인")
-                isLogin.toggle()
+                loginViewModel.loginGoogle {
+                    isLogin = loginViewModel.isSignedIn
+                }
             }, label: {
                 Text("로그인 하기")
             })
@@ -137,5 +154,7 @@ struct QuestionView: View {
 
 #Preview {
     QuestionView()
+        .environmentObject(QuestionViewModel())
+        .environmentObject(LoginViewModel())
         .preferredColorScheme(.dark)
 }
