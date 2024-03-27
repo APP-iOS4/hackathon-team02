@@ -111,6 +111,10 @@ struct MoreInfoView: View {
             } message: {
                 Text("로그아웃 하시겠습니까?")
             }
+            .onAppear {
+                isLogin = loginViewModel.isSignedIn
+                emailAddress = loginViewModel.userInfo?.email ?? ""
+            }
             .fontDesign(.monospaced)
             .background(.backGround)
             .toolbar {
