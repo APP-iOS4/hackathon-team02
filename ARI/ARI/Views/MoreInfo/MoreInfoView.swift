@@ -131,4 +131,5 @@ struct MoreInfoView: View {
 #Preview {
     MoreInfoView()
         .preferredColorScheme(.dark)
+        .environmentObject(LoginViewModel())
 }
