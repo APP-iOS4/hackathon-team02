@@ -34,6 +34,7 @@
 		D7014EC42BB3DBB000A8F05F /* AnswerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7014EC32BB3DBB000A8F05F /* AnswerDetailView.swift */; };
 		D7014EC62BB3F83300A8F05F /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7014EC52BB3F83300A8F05F /* AnswerCell.swift */; };
 		D7014EC82BB3FBEE00A8F05F /* EditAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7014EC72BB3FBEE00A8F05F /* EditAnswerView.swift */; };
+		D7014ECA2BB4299A00A8F05F /* MyQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7014EC92BB4299A00A8F05F /* MyQuestionCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		D7014EC32BB3DBB000A8F05F /* AnswerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerDetailView.swift; sourceTree = "<group>"; };
 		D7014EC52BB3F83300A8F05F /* AnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
 		D7014EC72BB3FBEE00A8F05F /* EditAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAnswerView.swift; sourceTree = "<group>"; };
+		D7014EC92BB4299A00A8F05F /* MyQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQuestionCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 				D7014EC52BB3F83300A8F05F /* AnswerCell.swift */,
 				D7014EC72BB3FBEE00A8F05F /* EditAnswerView.swift */,
 				9B2B3CB32BB3DF5C00EFBAE1 /* AnswerLabelView.swift */,
+				D7014EC92BB4299A00A8F05F /* MyQuestionCell.swift */,
 			);
 			path = MyAnswer;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				3B32CBAD2BB3BFE1002484AB /* MyAnswerView.swift in Sources */,
 				D7014EC62BB3F83300A8F05F /* AnswerCell.swift in Sources */,
 				3B2B03612BB3D5E6009B1DEA /* DataTesting.swift in Sources */,
+				D7014ECA2BB4299A00A8F05F /* MyQuestionCell.swift in Sources */,
 				D7014EC42BB3DBB000A8F05F /* AnswerDetailView.swift in Sources */,
 				3BE8ADC22BB40AA7005919CF /* QuestionData.swift in Sources */,
 				3BE8ADC52BB40ACD005919CF /* QuestionViewModel.swift in Sources */,
