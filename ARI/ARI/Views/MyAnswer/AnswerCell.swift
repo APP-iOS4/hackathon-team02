@@ -20,17 +20,21 @@ struct AnswerCell: View {
             //MARK: - 문제
             
             VStack {
-                Text("\(answer)")
-                    .font(.title3)
-                    .background(
-                        GeometryReader { geometry in
-                            Color.clear.onAppear {
-                                answerHeight = geometry.size.height
+                HStack {
+                    Text("\(answer)")
+                        .font(.title3)
+                        .background(
+                            GeometryReader { geometry in
+                                Color.clear.onAppear {
+                                    answerHeight = geometry.size.height
+                                }
                             }
-                        }
-                    )
+                        )
+                    Spacer()
+                }
+                .padding(.leading)
             }
-            .padding(.leading)
+            
             .foregroundStyle(.white)
             Spacer()
         }

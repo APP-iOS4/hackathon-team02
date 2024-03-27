@@ -14,6 +14,8 @@ struct MyAnswerView: View {
     @State var exampleRecent: [String] = ["Swift언어에서의 구조체(struct)와 클래스(class)의 차이는 무엇인지 설명하세요. ", "SwiftUI에서의 @EnvironmentObject의 장단점을 설명하세요. ", "UIKit과 SwiftUI의 차이가 무엇인지 3가지 설명하세요. ", "@StateObject와 @ObservableObject의 차이가 무엇인지 설명하세요. "]
     @State var exampleFavorite: [String] = ["HTML이 왜 프로그래밍 언어가 아닌지 설명하세요. ","UIKit의 MVC 구조에서 각 요소는 어떤 역할을 하는지 설명하세요. "]
     
+    @State var myAnswerExample: [String] = ["답변입니다111111111"]
+    @State var otherAnswerExample: [String] = ["답변입니다222222222", "답변입니다3333333", "답변입니다444444444"]
     
     var body: some View {
         NavigationStack {
@@ -73,15 +75,13 @@ struct MyAnswerView: View {
                         }
                         .padding(EdgeInsets(top: 15, leading: 10, bottom: 0, trailing: 10))
                         if isShowingRecent {
-                            ForEach(exampleRecent, id: \.self) { string in
-                                NavigationLink {
-                                    Text("\(string)")
-                                } label: {
-                                    AnswerLabelView(number: exampleRecent.count - (exampleRecent.firstIndex(of: string) ?? 0) - 1, question: string)
+                            ForEach(exampleRecent.indices, id: \.self) { index in
+                                NavigationLink(destination: AnswerDetailView(answer: exampleRecent[index], exampleRecent: exampleRecent, myAnswerExample: $myAnswerExample, otherAnswerExample: $otherAnswerExample, selectedQuestionIndex: index)) {
+                                    AnswerLabelView(number: exampleRecent.count - index - 1, question: exampleRecent[index])
                                 }
                                 .contextMenu {
                                     Button(role: .destructive) {
-                                        if let index = exampleRecent.firstIndex(of: string) {
+                                        if let index = exampleRecent.firstIndex(of: exampleRecent[index]) {
                                             exampleRecent.remove(at: index)
                                         }
                                     } label: {
@@ -90,17 +90,16 @@ struct MyAnswerView: View {
                                 }
                             }
                         } else {
-                            ForEach(exampleFavorite, id: \.self) { string in
-                                NavigationLink {
-                                    Text("\(string)")
-                                } label: {
-                                    AnswerLabelView(number: exampleFavorite.count - (exampleFavorite.firstIndex(of: string) ?? 0) - 1, question: string)
+                            ForEach(exampleFavorite.indices, id: \.self) { index in
+                                NavigationLink(destination: AnswerDetailView(answer: exampleFavorite[index], exampleRecent: exampleRecent, myAnswerExample: $myAnswerExample, otherAnswerExample: $otherAnswerExample, selectedQuestionIndex: index)) {
+                                    AnswerLabelView(number: exampleFavorite.count - index - 1, question: exampleFavorite[index])
                                 }
                                 .contextMenu {
                                     Button(role: .destructive) {
-                                        if let index = exampleFavorite.firstIndex(of: string) {
+                                        if let index = exampleFavorite.firstIndex(of: exampleFavorite[index]) {
                                             exampleFavorite.remove(at: index)
                                         }
+                                        
                                     } label: {
                                         Label("삭제", systemImage: "trash")
                                     }
@@ -108,10 +107,10 @@ struct MyAnswerView: View {
                             }
                         }
                         HStack {
-                            Spacer()
                             Text("}⌷")
                                 .font(.subheadline)
                                 .foregroundStyle(.accent)
+                            Spacer()
                         }
                         .padding(EdgeInsets(top: 0, leading: 10, bottom: 15, trailing: 10))
                     }
