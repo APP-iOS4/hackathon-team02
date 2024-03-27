@@ -12,43 +12,56 @@ struct EditAnswerView: View {
     
     @Binding var isShowingEditView: Bool
     @Binding var myAnswerExample: [String]
-    var selectedAnswerIndex: Int
-    
+    @Binding var recentQuestion: [String]
     @State private var editedAnswer: String = ""
-    
+    @State private var editHeight: CGFloat = .zero
+
+    var selectedAnswerIndex: Int
+    var placeholder = "답변을 입력해주세요."
+
     var body: some View {
         NavigationView {
             VStack {
-                TextField("답변을 작성해주세요.", text: $editedAnswer)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-            }
-            .onAppear {
-                editedAnswer = myAnswerExample[selectedAnswerIndex]
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("취소") {
-                        isShowingEditView = false
-                    }
-                    .padding()
-                }
+                Text("\(recentQuestion[selectedAnswerIndex])")
+                    .fontDesign(.monospaced)
+                    .foregroundStyle(Color.accent)
+                    .font(.subheadline)
+                    .multilineTextAlignment(.center)
+                    .padding([.top, .leading, .trailing])
                 
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("수정") {
-                        myAnswerExample[selectedAnswerIndex] = editedAnswer
-                        isShowingEditView = false
-                    }
-                    .padding()
+                    VStack {
+                        TextEditor(text: $editedAnswer)
+                            .foregroundStyle(editedAnswer == placeholder ? .gray : .text)
+                            .scrollContentBackground(.hidden)
+                            .background(Color.background2)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .fontDesign(.monospaced)
+                            .padding()
+                            .foregroundColor(.white)
                 }
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button("취소") {
+                            isShowingEditView = false
+                        }
+                        .padding()
+                    }
+                    
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("수정") {
+                            myAnswerExample[selectedAnswerIndex] = editedAnswer
+                            isShowingEditView = false
+                        }
+                        .padding()
+                    }
+                }
+                .navigationTitle("최근 답변")
+                .navigationBarTitleDisplayMode(.inline)
+                .padding()
             }
-            .navigationTitle("최근 답변")
-            .navigationBarTitleDisplayMode(.inline)
-            .padding()
         }
     }
 }
-
 //#Preview {
 //    EditAnswerView(editedAnswer: "", isShowingEditView: .constant(true), myAnswerExample: .constant(["Sample answer"]), selectedAnswerIndex: 0)
 //}
