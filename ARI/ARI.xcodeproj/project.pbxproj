@@ -17,6 +17,7 @@
 		3B32CBB42BB3D026002484AB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B32CBB32BB3D026002484AB /* GoogleService-Info.plist */; };
 		3B32CBCF2BB3D098002484AB /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3B32CBCE2BB3D098002484AB /* FirebaseFirestore */; };
 		3B32CBD32BB3D098002484AB /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3B32CBD22BB3D098002484AB /* FirebaseFirestoreSwift */; };
+		D7014EC42BB3DBB000A8F05F /* AnswerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7014EC32BB3DBB000A8F05F /* AnswerDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		3B32CBA22BB3BFA2002484AB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3B32CBAC2BB3BFE1002484AB /* MyAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAnswerView.swift; sourceTree = "<group>"; };
 		3B32CBB32BB3D026002484AB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D7014EC32BB3DBB000A8F05F /* AnswerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				3B32CBAC2BB3BFE1002484AB /* MyAnswerView.swift */,
+				D7014EC32BB3DBB000A8F05F /* AnswerDetailView.swift */,
 			);
 			path = MyAnswer;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 				3B32CB9C2BB3BFA1002484AB /* ARIApp.swift in Sources */,
 				3B32CBAD2BB3BFE1002484AB /* MyAnswerView.swift in Sources */,
 				3B2B03612BB3D5E6009B1DEA /* DataTesting.swift in Sources */,
+				D7014EC42BB3DBB000A8F05F /* AnswerDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
