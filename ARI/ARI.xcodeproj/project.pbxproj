@@ -40,7 +40,7 @@
 		3B32CBA22BB3BFA2002484AB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3B32CBAC2BB3BFE1002484AB /* MyAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAnswerView.swift; sourceTree = "<group>"; };
 		3BE8ADBC2BB40A58005919CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		3BE8ADBE2BB40A8C005919CF /* MoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MoreInfoView.swift; path = ARI/MoreInfoView.swift; sourceTree = SOURCE_ROOT; };
+		3BE8ADBE2BB40A8C005919CF /* MoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MoreInfoView.swift; path = ARI/Views/MoreInfo/MoreInfoView.swift; sourceTree = SOURCE_ROOT; };
 		3BE8ADC12BB40AA7005919CF /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		3BE8ADC42BB40ACD005919CF /* QuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewModel.swift; sourceTree = "<group>"; };
 		3BE8ADC62BB40B85005919CF /* DataTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTestView.swift; sourceTree = "<group>"; };
@@ -152,7 +152,7 @@
 			children = (
 				3B2B035C2BB3D101009B1DEA /* Question */,
 				3B32CBAB2BB3BFC1002484AB /* MyAnswer */,
-				3BE8ADBD2BB40A67005919CF /* MoreInfo */,
+				3BE8ADC82BB40DAD005919CF /* MoreInfo */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -162,14 +162,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3BE8ADBD2BB40A67005919CF /* MoreInfo */ = {
-			isa = PBXGroup;
-			children = (
-				3BE8ADBE2BB40A8C005919CF /* MoreInfoView.swift */,
-			);
-			path = MoreInfo;
 			sourceTree = "<group>";
 		};
 		3BE8ADC02BB40A97005919CF /* Models */ = {
@@ -186,6 +178,14 @@
 				3BE8ADC42BB40ACD005919CF /* QuestionViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		3BE8ADC82BB40DAD005919CF /* MoreInfo */ = {
+			isa = PBXGroup;
+			children = (
+				3BE8ADBE2BB40A8C005919CF /* MoreInfoView.swift */,
+			);
+			path = MoreInfo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
