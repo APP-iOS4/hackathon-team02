@@ -16,6 +16,9 @@
 		3B32CBAD2BB3BFE1002484AB /* MyAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B32CBAC2BB3BFE1002484AB /* MyAnswerView.swift */; };
 		3B32CBCF2BB3D098002484AB /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3B32CBCE2BB3D098002484AB /* FirebaseFirestore */; };
 		3B32CBD32BB3D098002484AB /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3B32CBD22BB3D098002484AB /* FirebaseFirestoreSwift */; };
+		D7014EC42BB3DBB000A8F05F /* AnswerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7014EC32BB3DBB000A8F05F /* AnswerDetailView.swift */; };
+		D7014EC62BB3F83300A8F05F /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7014EC52BB3F83300A8F05F /* AnswerCell.swift */; };
+		D7014EC82BB3FBEE00A8F05F /* EditAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7014EC72BB3FBEE00A8F05F /* EditAnswerView.swift */; };
 		9B2B3CB22BB3D80200EFBAE1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9B2B3CB12BB3D80200EFBAE1 /* GoogleService-Info.plist */; };
 		9B2B3CB42BB3DF5C00EFBAE1 /* AnswerLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2B3CB32BB3DF5C00EFBAE1 /* AnswerLabelView.swift */; };
 /* End PBXBuildFile section */
@@ -29,6 +32,10 @@
 		3B32CB9F2BB3BFA2002484AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B32CBA22BB3BFA2002484AB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3B32CBAC2BB3BFE1002484AB /* MyAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAnswerView.swift; sourceTree = "<group>"; };
+		3B32CBB32BB3D026002484AB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D7014EC32BB3DBB000A8F05F /* AnswerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerDetailView.swift; sourceTree = "<group>"; };
+		D7014EC52BB3F83300A8F05F /* AnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
+		D7014EC72BB3FBEE00A8F05F /* EditAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAnswerView.swift; sourceTree = "<group>"; };
 		9B2B3CB12BB3D80200EFBAE1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9B2B3CB32BB3DF5C00EFBAE1 /* AnswerLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerLabelView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,6 +122,9 @@
 			isa = PBXGroup;
 			children = (
 				3B32CBAC2BB3BFE1002484AB /* MyAnswerView.swift */,
+				D7014EC32BB3DBB000A8F05F /* AnswerDetailView.swift */,
+				D7014EC52BB3F83300A8F05F /* AnswerCell.swift */,
+				D7014EC72BB3FBEE00A8F05F /* EditAnswerView.swift */,
 				9B2B3CB32BB3DF5C00EFBAE1 /* AnswerLabelView.swift */,
 			);
 			path = MyAnswer;
@@ -221,11 +231,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7014EC82BB3FBEE00A8F05F /* EditAnswerView.swift in Sources */,
 				3B32CB9E2BB3BFA1002484AB /* ContentView.swift in Sources */,
 				3B2B035E2BB3D10C009B1DEA /* HomeView.swift in Sources */,
 				3B32CB9C2BB3BFA1002484AB /* ARIApp.swift in Sources */,
 				3B32CBAD2BB3BFE1002484AB /* MyAnswerView.swift in Sources */,
+				D7014EC62BB3F83300A8F05F /* AnswerCell.swift in Sources */,
 				3B2B03612BB3D5E6009B1DEA /* DataTesting.swift in Sources */,
+				D7014EC42BB3DBB000A8F05F /* AnswerDetailView.swift in Sources */,
 				9B2B3CB42BB3DF5C00EFBAE1 /* AnswerLabelView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
