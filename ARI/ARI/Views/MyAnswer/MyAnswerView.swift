@@ -11,11 +11,11 @@ struct MyAnswerView: View {
     @Namespace private var namespace
     @State private var isShowingRecent: Bool = true
     
-    @State var exampleRecent: [String] = ["Swift언어에서의 구조체(struct)와 클래스(class)의 차이는 무엇인지 설명하세요. ", "SwiftUI에서의 @EnvironmentObject의 장단점을 설명하세요. ", "UIKit과 SwiftUI의 차이가 무엇인지 3가지 설명하세요. ", "@StateObject와 @ObservableObject의 차이가 무엇인지 설명하세요. "]
-    @State var exampleFavorite: [String] = ["HTML이 왜 프로그래밍 언어가 아닌지 설명하세요. ","UIKit의 MVC 구조에서 각 요소는 어떤 역할을 하는지 설명하세요. "]
+    @State var recentQuestion: [String] = ["Swift언어에서의 구조체(struct)와 클래스(class)의 차이는 무엇인지 설명하세요. ", "SwiftUI에서의 @EnvironmentObject의 장단점을 설명하세요. ", "UIKit과 SwiftUI의 차이가 무엇인지 3가지 설명하세요. ", "@StateObject와 @ObservableObject의 차이가 무엇인지 설명하세요. "]
+    @State var favoriteQuestion: [String] = ["HTML이 왜 프로그래밍 언어가 아닌지 설명하세요. ","UIKit의 MVC 구조에서 각 요소는 어떤 역할을 하는지 설명하세요. "]
     
-    @State var myAnswerExample: [String] = ["답변입니다111111111"]
-    @State var otherAnswerExample: [String] = ["답변입니다222222222", "답변입니다3333333", "답변입니다444444444"]
+    @State var myAnswerDummy: [String] = ["답변입니다111111111","답변입니다222222222"]
+    @State var otherAnswerDummy: [String] = ["답변입니다222222222", "답변입니다3333333", "답변입니다444444444"]
     
     var body: some View {
         NavigationStack {
@@ -75,14 +75,14 @@ struct MyAnswerView: View {
                         }
                         .padding(EdgeInsets(top: 15, leading: 10, bottom: 0, trailing: 10))
                         if isShowingRecent {
-                            ForEach(exampleRecent.indices, id: \.self) { index in
-                                NavigationLink(destination: AnswerDetailView(answer: exampleRecent[index], exampleRecent: exampleRecent, myAnswerExample: $myAnswerExample, otherAnswerExample: $otherAnswerExample, selectedQuestionIndex: index)) {
-                                    AnswerLabelView(number: exampleRecent.count - index - 1, question: exampleRecent[index])
+                            ForEach(recentQuestion.indices, id: \.self) { index in
+                                NavigationLink(destination: AnswerDetailView(answer: recentQuestion[index], recentQuestion: recentQuestion, myAnswerExample: $myAnswerDummy, otherAnswerExample: $otherAnswerDummy, selectedQuestionIndex: index)) {
+                                    AnswerLabelView(number: recentQuestion.count - index - 1, question: recentQuestion[index])
                                 }
                                 .contextMenu {
                                     Button(role: .destructive) {
-                                        if let index = exampleRecent.firstIndex(of: exampleRecent[index]) {
-                                            exampleRecent.remove(at: index)
+                                        if let index = recentQuestion.firstIndex(of: recentQuestion[index]) {
+                                            recentQuestion.remove(at: index)
                                         }
                                     } label: {
                                         Label("삭제", systemImage: "trash")
@@ -90,14 +90,14 @@ struct MyAnswerView: View {
                                 }
                             }
                         } else {
-                            ForEach(exampleFavorite.indices, id: \.self) { index in
-                                NavigationLink(destination: AnswerDetailView(answer: exampleFavorite[index], exampleRecent: exampleRecent, myAnswerExample: $myAnswerExample, otherAnswerExample: $otherAnswerExample, selectedQuestionIndex: index)) {
-                                    AnswerLabelView(number: exampleFavorite.count - index - 1, question: exampleFavorite[index])
+                            ForEach(favoriteQuestion.indices, id: \.self) { index in
+                                NavigationLink(destination: AnswerDetailView(answer: favoriteQuestion[index], recentQuestion: recentQuestion, myAnswerExample: $myAnswerDummy, otherAnswerExample: $otherAnswerDummy, selectedQuestionIndex: index)) {
+                                    AnswerLabelView(number: favoriteQuestion.count - index - 1, question: favoriteQuestion[index])
                                 }
                                 .contextMenu {
                                     Button(role: .destructive) {
-                                        if let index = exampleFavorite.firstIndex(of: exampleFavorite[index]) {
-                                            exampleFavorite.remove(at: index)
+                                        if let index = favoriteQuestion.firstIndex(of: favoriteQuestion[index]) {
+                                            favoriteQuestion.remove(at: index)
                                         }
                                         
                                     } label: {

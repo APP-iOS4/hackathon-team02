@@ -22,7 +22,6 @@ struct AnswerCell: View {
             VStack {
                 HStack {
                     Text("\(answer)")
-                        .font(.title3)
                         .background(
                             GeometryReader { geometry in
                                 Color.clear.onAppear {

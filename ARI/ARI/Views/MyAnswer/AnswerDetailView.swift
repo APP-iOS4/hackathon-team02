@@ -14,7 +14,7 @@ struct AnswerDetailView: View {
     
     var answer: String
     
-    @State var exampleRecent: [String] = []
+    @State var recentQuestion: [String] = []
     @Binding var myAnswerExample: [String]
     @Binding var otherAnswerExample: [String]
     @State var selectedQuestionIndex: Int = 0
@@ -26,46 +26,50 @@ struct AnswerDetailView: View {
                     HStack {
                         Text("for question in questions {")
                             .foregroundStyle(.accent)
-                            .fontWeight(.semibold)
                         Spacer()
                     }
                     .padding(.vertical, 20)
                     
                     // MARK: - 질문
-                    MyQuestionCell(exampleRecent: $exampleRecent, selectedQuestionIndex: selectedQuestionIndex)
+                    MyQuestionCell(recentQuestion: $recentQuestion, selectedQuestionIndex: selectedQuestionIndex)
                     
                     HStack {
                         Text("myAnswer()")
                             .foregroundStyle(.accent)
-                            .fontWeight(.semibold)
-
                         Spacer()
                     }
                     
-                    // MARK: - 내 답변
-                    AnswerCell(answer: myAnswerExample.isEmpty ? "" : myAnswerExample[0])
-                        .padding(.bottom, 30)
+                    // MARK: - 답변
+                    // 선택된 질문 인덱스와 답변의 수 비교
+                    if selectedQuestionIndex < myAnswerExample.count {
+                        AnswerCell(answer: myAnswerExample[selectedQuestionIndex])
+                            .padding(.bottom, 30)
+                    } else {
+                        AnswerCell(answer: "답변이 없습니다")
+                            .padding(.bottom, 30)
+                    }
                     Spacer()
                     
                     HStack {
                         Text("otherAnswer()")
                             .foregroundStyle(.accent)
-                            .fontWeight(.semibold)
-
                         Spacer()
                     }
                     
                     LazyVStack {
-                        ForEach(otherAnswerExample.indices, id: \.self) { index in
-                            AnswerCell(answer: otherAnswerExample[index])
-                                .padding(.bottom)
+                        ForEach(recentQuestion.indices, id: \.self) { index in
+                            if selectedQuestionIndex < otherAnswerExample.count {
+                                AnswerCell(answer: otherAnswerExample[selectedQuestionIndex])
+                                    .padding(.bottom, 30)
+                            } else {
+                                AnswerCell(answer: "답변이 없습니다")
+                                    .padding(.bottom, 30)
+                            }
                         }
                     }
                     HStack {
                         Text("}⌷")
                             .foregroundStyle(.accent)
-                            .fontWeight(.semibold)
-
                         Spacer()
                     }
                     .padding(.vertical, 20)
@@ -105,12 +109,11 @@ struct AnswerDetailView: View {
         }
         .navigationTitle("최근 답변")
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $isShowingEditView) {
-            EditAnswerView(isShowingEditView: $isShowingEditView)
+        .fullScreenCover(isPresented: $isShowingEditView) {
+            EditAnswerView(isShowingEditView: $isShowingEditView, myAnswerExample: $myAnswerExample, selectedAnswerIndex: selectedQuestionIndex)
         }
     }
 }
-
 
 //#Preview {
 //    AnswerDetailView(answer: "답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다.", exampleRecent: .constant(["Question 1", "Question 2"]), myAnswerExample: .constant(["My Answer"]), otherAnswerExample: .constant(["Other Answer 1", "Other Answer 2"]), selectedQuestionIndex: 0)

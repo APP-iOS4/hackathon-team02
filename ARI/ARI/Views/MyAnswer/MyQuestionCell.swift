@@ -11,7 +11,7 @@ struct MyQuestionCell: View {
     
     @State private var questionHeight: CGFloat = .zero
     
-    @Binding var exampleRecent: [String]
+    @Binding var recentQuestion: [String]
 
     var selectedQuestionIndex: Int
     
@@ -27,7 +27,7 @@ struct MyQuestionCell: View {
                     Text("#\(selectedQuestionIndex)")
                         .foregroundStyle(.accent)
                         
-                    Text("\(exampleRecent[selectedQuestionIndex])")
+                    Text("\(recentQuestion[selectedQuestionIndex])")
                         .background(
                             GeometryReader { geometry in
                                 Color.clear.onAppear {
@@ -46,5 +46,5 @@ struct MyQuestionCell: View {
 }
 
 #Preview {
-    MyQuestionCell(exampleRecent: .constant(["Question 1", "Question 2"]), selectedQuestionIndex: 0)
+    MyQuestionCell(recentQuestion: .constant(["Question 1", "Question 2"]), selectedQuestionIndex: 0)
 }
