@@ -12,7 +12,7 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selectedPage) {
-            HomeView()
+            QuestionView()
                 .tabItem {
                     Image(systemName: "questionmark.app")
                     Text("오늘의 질문")
@@ -25,7 +25,21 @@ struct ContentView: View {
                     Image(systemName: "list.bullet")
                     Text("나의 답변")
                 }
-                .tag(0)
+                .tag(1)
+            
+            MoreInfoView()
+                .tabItem {
+                    Image(systemName: "info.square")
+                    Text("더 보기")
+                }
+                .tag(2)
+            
+            DataTestView()
+                .tabItem {
+                    Image(systemName: "list.bullet")
+                    Text("데이터 테스트")
+                }
+                .tag(3)
         }
         
     }

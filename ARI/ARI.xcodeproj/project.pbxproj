@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B2B035E2BB3D10C009B1DEA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2B035D2BB3D10C009B1DEA /* HomeView.swift */; };
+		3B2B035E2BB3D10C009B1DEA /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2B035D2BB3D10C009B1DEA /* QuestionView.swift */; };
 		3B2B03612BB3D5E6009B1DEA /* DataTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2B03602BB3D5E6009B1DEA /* DataTesting.swift */; };
 		3B32CB9C2BB3BFA1002484AB /* ARIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B32CB9B2BB3BFA1002484AB /* ARIApp.swift */; };
 		3B32CB9E2BB3BFA1002484AB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B32CB9D2BB3BFA1002484AB /* ContentView.swift */; };
@@ -16,15 +16,22 @@
 		3B32CBAD2BB3BFE1002484AB /* MyAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B32CBAC2BB3BFE1002484AB /* MyAnswerView.swift */; };
 		3B32CBCF2BB3D098002484AB /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3B32CBCE2BB3D098002484AB /* FirebaseFirestore */; };
 		3B32CBD32BB3D098002484AB /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3B32CBD22BB3D098002484AB /* FirebaseFirestoreSwift */; };
+		3BE8ADB62BB40A32005919CF /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 3BE8ADB52BB40A32005919CF /* GoogleSignIn */; };
+		3BE8ADB82BB40A32005919CF /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BE8ADB72BB40A32005919CF /* GoogleSignInSwift */; };
+		3BE8ADBB2BB40A4A005919CF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3BE8ADBA2BB40A4A005919CF /* FirebaseAuth */; };
+		3BE8ADBF2BB40A8C005919CF /* MoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8ADBE2BB40A8C005919CF /* MoreInfoView.swift */; };
+		3BE8ADC22BB40AA7005919CF /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8ADC12BB40AA7005919CF /* Question.swift */; };
+		3BE8ADC52BB40ACD005919CF /* QuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8ADC42BB40ACD005919CF /* QuestionViewModel.swift */; };
+		3BE8ADC72BB40B85005919CF /* DataTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8ADC62BB40B85005919CF /* DataTestView.swift */; };
+		9B2B3CB22BB3D80200EFBAE1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9B2B3CB12BB3D80200EFBAE1 /* GoogleService-Info.plist */; };
+		9B2B3CB42BB3DF5C00EFBAE1 /* AnswerLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2B3CB32BB3DF5C00EFBAE1 /* AnswerLabelView.swift */; };
 		D7014EC42BB3DBB000A8F05F /* AnswerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7014EC32BB3DBB000A8F05F /* AnswerDetailView.swift */; };
 		D7014EC62BB3F83300A8F05F /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7014EC52BB3F83300A8F05F /* AnswerCell.swift */; };
 		D7014EC82BB3FBEE00A8F05F /* EditAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7014EC72BB3FBEE00A8F05F /* EditAnswerView.swift */; };
-		9B2B3CB22BB3D80200EFBAE1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9B2B3CB12BB3D80200EFBAE1 /* GoogleService-Info.plist */; };
-		9B2B3CB42BB3DF5C00EFBAE1 /* AnswerLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2B3CB32BB3DF5C00EFBAE1 /* AnswerLabelView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3B2B035D2BB3D10C009B1DEA /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		3B2B035D2BB3D10C009B1DEA /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		3B2B03602BB3D5E6009B1DEA /* DataTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTesting.swift; sourceTree = "<group>"; };
 		3B32CB982BB3BFA1002484AB /* ARI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B32CB9B2BB3BFA1002484AB /* ARIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARIApp.swift; sourceTree = "<group>"; };
@@ -32,12 +39,16 @@
 		3B32CB9F2BB3BFA2002484AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B32CBA22BB3BFA2002484AB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3B32CBAC2BB3BFE1002484AB /* MyAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAnswerView.swift; sourceTree = "<group>"; };
-		3B32CBB32BB3D026002484AB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3BE8ADBC2BB40A58005919CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3BE8ADBE2BB40A8C005919CF /* MoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MoreInfoView.swift; path = ARI/MoreInfoView.swift; sourceTree = SOURCE_ROOT; };
+		3BE8ADC12BB40AA7005919CF /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		3BE8ADC42BB40ACD005919CF /* QuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewModel.swift; sourceTree = "<group>"; };
+		3BE8ADC62BB40B85005919CF /* DataTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTestView.swift; sourceTree = "<group>"; };
+		9B2B3CB12BB3D80200EFBAE1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9B2B3CB32BB3DF5C00EFBAE1 /* AnswerLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerLabelView.swift; sourceTree = "<group>"; };
 		D7014EC32BB3DBB000A8F05F /* AnswerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerDetailView.swift; sourceTree = "<group>"; };
 		D7014EC52BB3F83300A8F05F /* AnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
 		D7014EC72BB3FBEE00A8F05F /* EditAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAnswerView.swift; sourceTree = "<group>"; };
-		9B2B3CB12BB3D80200EFBAE1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		9B2B3CB32BB3DF5C00EFBAE1 /* AnswerLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerLabelView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,25 +57,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B32CBCF2BB3D098002484AB /* FirebaseFirestore in Frameworks */,
+				3BE8ADBB2BB40A4A005919CF /* FirebaseAuth in Frameworks */,
 				3B32CBD32BB3D098002484AB /* FirebaseFirestoreSwift in Frameworks */,
+				3BE8ADB62BB40A32005919CF /* GoogleSignIn in Frameworks */,
+				3BE8ADB82BB40A32005919CF /* GoogleSignInSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3B2B035C2BB3D101009B1DEA /* Home */ = {
+		3B2B035C2BB3D101009B1DEA /* Question */ = {
 			isa = PBXGroup;
 			children = (
-				3B2B035D2BB3D10C009B1DEA /* HomeView.swift */,
+				3B2B035D2BB3D10C009B1DEA /* QuestionView.swift */,
 			);
-			path = Home;
+			path = Question;
 			sourceTree = "<group>";
 		};
 		3B2B035F2BB3D5D9009B1DEA /* DataControl */ = {
 			isa = PBXGroup;
 			children = (
 				3B2B03602BB3D5E6009B1DEA /* DataTesting.swift */,
+				3BE8ADC62BB40B85005919CF /* DataTestView.swift */,
 			);
 			path = DataControl;
 			sourceTree = "<group>";
@@ -74,6 +89,7 @@
 			children = (
 				3B32CB9A2BB3BFA1002484AB /* ARI */,
 				3B32CB992BB3BFA1002484AB /* Products */,
+				3BE8ADB92BB40A4A005919CF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -88,10 +104,11 @@
 		3B32CB9A2BB3BFA1002484AB /* ARI */ = {
 			isa = PBXGroup;
 			children = (
+				3BE8ADBC2BB40A58005919CF /* Info.plist */,
 				3B32CBA92BB3BFB0002484AB /* Apps */,
 				3B2B035F2BB3D5D9009B1DEA /* DataControl */,
-				3B32CBB02BB3C172002484AB /* Models */,
-				3B32CBB12BB3C181002484AB /* ViewModels */,
+				3BE8ADC02BB40A97005919CF /* Models */,
+				3BE8ADC32BB40AB7005919CF /* ViewModels */,
 				3B32CBB22BB3C194002484AB /* Views */,
 				3B32CB9F2BB3BFA2002484AB /* Assets.xcassets */,
 				9B2B3CB12BB3D80200EFBAE1 /* GoogleService-Info.plist */,
@@ -130,27 +147,45 @@
 			path = MyAnswer;
 			sourceTree = "<group>";
 		};
-		3B32CBB02BB3C172002484AB /* Models */ = {
+		3B32CBB22BB3C194002484AB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3B2B035C2BB3D101009B1DEA /* Question */,
+				3B32CBAB2BB3BFC1002484AB /* MyAnswer */,
+				3BE8ADBD2BB40A67005919CF /* MoreInfo */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3BE8ADB92BB40A4A005919CF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3BE8ADBD2BB40A67005919CF /* MoreInfo */ = {
+			isa = PBXGroup;
+			children = (
+				3BE8ADBE2BB40A8C005919CF /* MoreInfoView.swift */,
+			);
+			path = MoreInfo;
+			sourceTree = "<group>";
+		};
+		3BE8ADC02BB40A97005919CF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3BE8ADC12BB40AA7005919CF /* Question.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		3B32CBB12BB3C181002484AB /* ViewModels */ = {
+		3BE8ADC32BB40AB7005919CF /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				3BE8ADC42BB40ACD005919CF /* QuestionViewModel.swift */,
 			);
 			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		3B32CBB22BB3C194002484AB /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				3B2B035C2BB3D101009B1DEA /* Home */,
-				3B32CBAB2BB3BFC1002484AB /* MyAnswer */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,6 +207,9 @@
 			packageProductDependencies = (
 				3B32CBCE2BB3D098002484AB /* FirebaseFirestore */,
 				3B32CBD22BB3D098002484AB /* FirebaseFirestoreSwift */,
+				3BE8ADB52BB40A32005919CF /* GoogleSignIn */,
+				3BE8ADB72BB40A32005919CF /* GoogleSignInSwift */,
+				3BE8ADBA2BB40A4A005919CF /* FirebaseAuth */,
 			);
 			productName = ARI;
 			productReference = 3B32CB982BB3BFA1002484AB /* ARI.app */;
@@ -203,6 +241,7 @@
 			mainGroup = 3B32CB8F2BB3BFA1002484AB;
 			packageReferences = (
 				3B32CBB52BB3D098002484AB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				3BE8ADB42BB40A32005919CF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = 3B32CB992BB3BFA1002484AB /* Products */;
 			projectDirPath = "";
@@ -233,12 +272,16 @@
 			files = (
 				D7014EC82BB3FBEE00A8F05F /* EditAnswerView.swift in Sources */,
 				3B32CB9E2BB3BFA1002484AB /* ContentView.swift in Sources */,
-				3B2B035E2BB3D10C009B1DEA /* HomeView.swift in Sources */,
+				3BE8ADBF2BB40A8C005919CF /* MoreInfoView.swift in Sources */,
+				3B2B035E2BB3D10C009B1DEA /* QuestionView.swift in Sources */,
+				3BE8ADC72BB40B85005919CF /* DataTestView.swift in Sources */,
 				3B32CB9C2BB3BFA1002484AB /* ARIApp.swift in Sources */,
 				3B32CBAD2BB3BFE1002484AB /* MyAnswerView.swift in Sources */,
 				D7014EC62BB3F83300A8F05F /* AnswerCell.swift in Sources */,
 				3B2B03612BB3D5E6009B1DEA /* DataTesting.swift in Sources */,
 				D7014EC42BB3DBB000A8F05F /* AnswerDetailView.swift in Sources */,
+				3BE8ADC22BB40AA7005919CF /* Question.swift in Sources */,
+				3BE8ADC52BB40ACD005919CF /* QuestionViewModel.swift in Sources */,
 				9B2B3CB42BB3DF5C00EFBAE1 /* AnswerLabelView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -376,6 +419,7 @@
 				DEVELOPMENT_TEAM = 6R3M7VGRP2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ARI/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -409,6 +453,7 @@
 				DEVELOPMENT_TEAM = 6R3M7VGRP2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ARI/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -463,6 +508,14 @@
 				minimumVersion = 10.23.0;
 			};
 		};
+		3BE8ADB42BB40A32005919CF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -475,6 +528,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3B32CBB52BB3D098002484AB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		3BE8ADB52BB40A32005919CF /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BE8ADB42BB40A32005919CF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		3BE8ADB72BB40A32005919CF /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BE8ADB42BB40A32005919CF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+		3BE8ADBA2BB40A4A005919CF /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B32CBB52BB3D098002484AB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
