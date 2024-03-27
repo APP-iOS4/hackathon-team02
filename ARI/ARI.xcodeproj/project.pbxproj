@@ -20,7 +20,7 @@
 		3BE8ADB82BB40A32005919CF /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BE8ADB72BB40A32005919CF /* GoogleSignInSwift */; };
 		3BE8ADBB2BB40A4A005919CF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3BE8ADBA2BB40A4A005919CF /* FirebaseAuth */; };
 		3BE8ADBF2BB40A8C005919CF /* MoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8ADBE2BB40A8C005919CF /* MoreInfoView.swift */; };
-		3BE8ADC22BB40AA7005919CF /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8ADC12BB40AA7005919CF /* Question.swift */; };
+		3BE8ADC22BB40AA7005919CF /* QuestionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8ADC12BB40AA7005919CF /* QuestionData.swift */; };
 		3BE8ADC52BB40ACD005919CF /* QuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8ADC42BB40ACD005919CF /* QuestionViewModel.swift */; };
 		3BE8ADC72BB40B85005919CF /* DataTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8ADC62BB40B85005919CF /* DataTestView.swift */; };
 		9B2B3CB22BB3D80200EFBAE1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9B2B3CB12BB3D80200EFBAE1 /* GoogleService-Info.plist */; };
@@ -41,7 +41,7 @@
 		3B32CBAC2BB3BFE1002484AB /* MyAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAnswerView.swift; sourceTree = "<group>"; };
 		3BE8ADBC2BB40A58005919CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3BE8ADBE2BB40A8C005919CF /* MoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MoreInfoView.swift; path = ARI/Views/MoreInfo/MoreInfoView.swift; sourceTree = SOURCE_ROOT; };
-		3BE8ADC12BB40AA7005919CF /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		3BE8ADC12BB40AA7005919CF /* QuestionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionData.swift; sourceTree = "<group>"; };
 		3BE8ADC42BB40ACD005919CF /* QuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewModel.swift; sourceTree = "<group>"; };
 		3BE8ADC62BB40B85005919CF /* DataTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTestView.swift; sourceTree = "<group>"; };
 		9B2B3CB12BB3D80200EFBAE1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -167,7 +167,7 @@
 		3BE8ADC02BB40A97005919CF /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3BE8ADC12BB40AA7005919CF /* Question.swift */,
+				3BE8ADC12BB40AA7005919CF /* QuestionData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -280,7 +280,7 @@
 				D7014EC62BB3F83300A8F05F /* AnswerCell.swift in Sources */,
 				3B2B03612BB3D5E6009B1DEA /* DataTesting.swift in Sources */,
 				D7014EC42BB3DBB000A8F05F /* AnswerDetailView.swift in Sources */,
-				3BE8ADC22BB40AA7005919CF /* Question.swift in Sources */,
+				3BE8ADC22BB40AA7005919CF /* QuestionData.swift in Sources */,
 				3BE8ADC52BB40ACD005919CF /* QuestionViewModel.swift in Sources */,
 				9B2B3CB42BB3DF5C00EFBAE1 /* AnswerLabelView.swift in Sources */,
 			);

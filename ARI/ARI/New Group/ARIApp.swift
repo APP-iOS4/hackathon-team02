@@ -18,6 +18,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct ARIApp: App {
+    // 문제 데이터 뷰 모델
+    @StateObject private var questionViewModel = QuestionViewModel()
     
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
@@ -26,6 +28,7 @@ struct ARIApp: App {
         WindowGroup {
             ContentView()
                 .preferredColorScheme(.dark)
+                .environmentObject(questionViewModel)
         }
     }
 }
