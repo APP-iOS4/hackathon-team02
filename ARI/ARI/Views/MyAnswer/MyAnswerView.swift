@@ -16,6 +16,9 @@ struct MyAnswerView: View {
     
     @State var myAnswerDummy: [String] = ["답변입니다111111111","답변입니다222222222"]
     @State var otherAnswerDummy: [String] = ["답변입니다222222222", "답변입니다3333333", "답변입니다444444444"]
+    @State private var isLogin: Bool = false
+    
+    
     
     var body: some View {
         NavigationStack {
@@ -76,7 +79,7 @@ struct MyAnswerView: View {
                         .padding(EdgeInsets(top: 15, leading: 10, bottom: 0, trailing: 10))
                         if isShowingRecent {
                             ForEach(recentQuestion.indices, id: \.self) { index in
-                                NavigationLink(destination: AnswerDetailView(answer: recentQuestion[index], recentQuestion: recentQuestion, myAnswerExample: $myAnswerDummy, otherAnswerExample: $otherAnswerDummy, selectedQuestionIndex: index)) {
+                                NavigationLink(destination: AnswerDetailView(answer: recentQuestion[index], selectedQuestionIndex: index, recentQuestion: recentQuestion, myAnswerExample: $myAnswerDummy, otherAnswerExample: $otherAnswerDummy)) {
                                     AnswerLabelView(number: recentQuestion.count - index - 1, question: recentQuestion[index])
                                 }
                                 .contextMenu {
@@ -91,7 +94,7 @@ struct MyAnswerView: View {
                             }
                         } else {
                             ForEach(favoriteQuestion.indices, id: \.self) { index in
-                                NavigationLink(destination: AnswerDetailView(answer: favoriteQuestion[index], recentQuestion: recentQuestion, myAnswerExample: $myAnswerDummy, otherAnswerExample: $otherAnswerDummy, selectedQuestionIndex: index)) {
+                                NavigationLink(destination: AnswerDetailView(answer: favoriteQuestion[index], selectedQuestionIndex: index, recentQuestion: recentQuestion, myAnswerExample: $myAnswerDummy, otherAnswerExample: $otherAnswerDummy)) {
                                     AnswerLabelView(number: favoriteQuestion.count - index - 1, question: favoriteQuestion[index])
                                 }
                                 .contextMenu {

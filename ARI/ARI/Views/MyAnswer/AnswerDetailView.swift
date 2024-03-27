@@ -8,16 +8,20 @@
 import SwiftUI
 
 struct AnswerDetailView: View {
-    @State private var questionHeight: CGFloat = .zero
-    @Environment(\.dismiss) var dismiss
-    @State private var isShowingEditView = false
     
     var answer: String
     
+    @EnvironmentObject private var loginViewModel: LoginViewModel
+    @Environment(\.dismiss) var dismiss
+    
+    @State private var isShowingEditView = false
+    @State private var isLogin = false
+    @State var selectedQuestionIndex: Int = 0
     @State var recentQuestion: [String] = []
+    
     @Binding var myAnswerExample: [String]
     @Binding var otherAnswerExample: [String]
-    @State var selectedQuestionIndex: Int = 0
+    
     
     var body: some View {
         NavigationView {
@@ -57,6 +61,7 @@ struct AnswerDetailView: View {
                     }
                     
                     LazyVStack {
+                        // 임시로 내답변이랑 똑같이 해둠,,,,,
                         ForEach(recentQuestion.indices, id: \.self) { index in
                             if selectedQuestionIndex < otherAnswerExample.count {
                                 AnswerCell(answer: otherAnswerExample[selectedQuestionIndex])
@@ -82,27 +87,32 @@ struct AnswerDetailView: View {
             .fontDesign(.monospaced)
             .background(.backGround)
         }
+        .onAppear {
+            isLogin = loginViewModel.isSignedIn
+        }
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Menu {
-                    Button(action: {
-                        isShowingEditView.toggle()
-                    }, label: {
-                        Label("수정하기", systemImage: "square.and.pencil")
-                    })
-                    Button(role: .destructive) {
-                        dismiss()
+            if selectedQuestionIndex < myAnswerExample.count && isLogin == true {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Menu {
+                        Button(action: {
+                            isShowingEditView.toggle()
+                        }, label: {
+                            Label("수정하기", systemImage: "square.and.pencil")
+                        })
+                        Button(role: .destructive) {
+                            dismiss()
+                        } label: {
+                            Label("삭제하기", systemImage: "trash")
+                        }
+                        
                     } label: {
-                        Label("삭제하기", systemImage: "trash")
+                        Image(systemName: "ellipsis")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 15)
+                            .rotationEffect(.degrees(90))
+                            .foregroundStyle(.accent)
                     }
-                    
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 15)
-                        .rotationEffect(.degrees(90))
-                        .foregroundStyle(.accent)
                 }
             }
             
@@ -110,7 +120,7 @@ struct AnswerDetailView: View {
         .navigationTitle("최근 답변")
         .navigationBarTitleDisplayMode(.inline)
         .fullScreenCover(isPresented: $isShowingEditView) {
-            EditAnswerView(isShowingEditView: $isShowingEditView, myAnswerExample: $myAnswerExample, selectedAnswerIndex: selectedQuestionIndex)
+            EditAnswerView(isShowingEditView: $isShowingEditView, myAnswerExample: $myAnswerExample, recentQuestion: $recentQuestion, selectedAnswerIndex: selectedQuestionIndex)
         }
     }
 }
