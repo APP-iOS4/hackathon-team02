@@ -27,27 +27,21 @@ struct DataTestView: View {
             }
             
             Button {
-                loginViewModel.loginGoogle()
+                loginViewModel.loginGoogle {
+                    isLogin = loginViewModel.isSignedIn
+                }
             } label: {
                 Text("로그인 버튼")
             }
             
             Button {
-                loginViewModel.logoutGoogle()
+                loginViewModel.logoutGoogle {
+                    isLogin = loginViewModel.isSignedIn
+                }
             } label: {
                 Text("로그아웃 버튼")
             }
-            
-            Button {
-                isLogin = checkIsUserLogin()
-            } label: {
-                Text("로그인 확인 버튼")
-            }
         }
-    }
-    
-    func checkIsUserLogin() -> Bool {
-        return loginViewModel.isUserLogin()
     }
 }
 

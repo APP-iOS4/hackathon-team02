@@ -18,8 +18,13 @@ import GoogleSignInSwift
 class LoginViewModel: ObservableObject {
     var userInfo: User?
     
+    /// 현재 로그인 된 정보가 있는가?
+    var isSignedIn: Bool {
+        return userInfo == nil ? false : true
+    }
+    
     /// 구글 로그인 실행
-    func loginGoogle() {
+    func loginGoogle(completion: @escaping () -> Void) {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first,
               let rootViewController = window.rootViewController
@@ -56,37 +61,26 @@ class LoginViewModel: ObservableObject {
                 print("\(String(describing: result.user.uid)), \(String(describing: result.user.email))")
                 // 현재 유저 정보 저장
                 self.userInfo = User(id: result.user.uid, email: result.user.email ?? "이메일 정보 없음")
+                
+                completion()
             }
         }
     }
     
     /// 구글 로그아웃 실행
-    func logoutGoogle() {
+    func logoutGoogle(completion: @escaping () -> Void) {
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
             // 현재 유저 정보 삭제
             self.userInfo = nil
+
+            completion()
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
     }
-    
-    /// 유저 로그인 확인
-    func isUserLogin() -> Bool {
-        if userInfo != nil {
-            return true
-        } else {
-            return false
-        }
-    }
 }
-
-
-
-
-
-
 
 //enum AuthenticationState {
 //    case unauthenticated
