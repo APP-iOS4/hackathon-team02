@@ -15,19 +15,19 @@ struct AnswerLabelView: View {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
                 .foregroundStyle(.background2)
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Text("#\(number)")
                         .foregroundStyle(.accent)
                         .fontWeight(.heavy)
-                        .font(.title3)
                     Spacer()
-                    Text("Date")
-                        .foregroundStyle(.text)
+//                    Text("2024-03-27")
+//                        .foregroundStyle(.text)
+//                        .font(.subheadline)
                 }
+                
                 Text("\(question)")
                     .foregroundStyle(.text)
-                    .font(.title3)
                     .multilineTextAlignment(.leading)
                     .lineLimit(2)
             }
