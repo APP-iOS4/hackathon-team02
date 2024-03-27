@@ -36,7 +36,6 @@ struct MoreInfoView: View {
                                     DispatchQueue.main.async {
                                         isShowingAlert.toggle()
                                     }
-                                    isLogin = loginViewModel.isUserLogin()
                                 } label: {
                                     Text("Logout")
                                         .font(.title3.bold())
@@ -44,11 +43,10 @@ struct MoreInfoView: View {
                             } else {
                                 Button {
                                     DispatchQueue.main.async {
-                                        Task{
-                                            loginViewModel.loginGoogle()
+                                        loginViewModel.loginGoogle {
+                                            isLogin = loginViewModel.isSignedIn
+                                            emailAddress = loginViewModel.userInfo?.email ?? ""
                                         }
-                                        isLogin = loginViewModel.isUserLogin()
-                                        emailAddress = loginViewModel.userInfo?.email ?? ""
                                     }
                                 } label: {
                                     Text("Login")
@@ -57,10 +55,6 @@ struct MoreInfoView: View {
                             }
                         }
                         .padding()
-                    }
-                    .onChange(of: loginViewModel.isUserLogin()) {
-                        isLogin = loginViewModel.isUserLogin()
-                        // print("\(loginViewModel.userInfo?.email ?? "NO DATA")")
                     }
                     
                     
@@ -109,9 +103,10 @@ struct MoreInfoView: View {
             .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
             .alert("로그아웃", isPresented: $isShowingAlert) {
                 Button("로그아웃", role: .destructive) {
-                    loginViewModel.logoutGoogle()
-                    isLogin = loginViewModel.isUserLogin()
-                    emailAddress = ""
+                    loginViewModel.logoutGoogle {
+                        isLogin = loginViewModel.isSignedIn
+                        emailAddress = ""
+                    }
                 }
             } message: {
                 Text("로그아웃 하시겠습니까?")
