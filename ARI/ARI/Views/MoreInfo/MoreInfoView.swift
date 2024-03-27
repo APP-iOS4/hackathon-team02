@@ -10,7 +10,9 @@ import SwiftUI
 struct MoreInfoView: View {
     @State private var isLogin: Bool = false
     @State private var isShowingAlert: Bool = false
-    let emailAddress: String = "abcd@example.com"
+    @State private var emailAddress: String = "abcd@example.com"
+    
+    @EnvironmentObject private var loginViewModel: LoginViewModel
     
     var body: some View {
         NavigationStack {
@@ -31,14 +33,23 @@ struct MoreInfoView: View {
                             
                             if isLogin {
                                 Button {
-                                    isShowingAlert.toggle()
+                                    DispatchQueue.main.async {
+                                        isShowingAlert.toggle()
+                                    }
+                                    isLogin = loginViewModel.isUserLogin()
                                 } label: {
                                     Text("Logout")
                                         .font(.title3.bold())
                                 }
                             } else {
                                 Button {
-                                    isLogin = true
+                                    DispatchQueue.main.async {
+                                        Task{
+                                            loginViewModel.loginGoogle()
+                                        }
+                                        isLogin = loginViewModel.isUserLogin()
+                                        emailAddress = loginViewModel.userInfo?.email ?? ""
+                                    }
                                 } label: {
                                     Text("Login")
                                         .font(.title3.bold())
@@ -47,7 +58,10 @@ struct MoreInfoView: View {
                         }
                         .padding()
                     }
-                    
+                    .onChange(of: loginViewModel.isUserLogin()) {
+                        isLogin = loginViewModel.isUserLogin()
+                        // print("\(loginViewModel.userInfo?.email ?? "NO DATA")")
+                    }
                     
                     
                     ZStack(alignment: .leading) {
@@ -95,9 +109,10 @@ struct MoreInfoView: View {
             .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 10))
             .alert("로그아웃", isPresented: $isShowingAlert) {
                 Button("로그아웃", role: .destructive) {
-                    isLogin = false
+                    loginViewModel.logoutGoogle()
+                    isLogin = loginViewModel.isUserLogin()
+                    emailAddress = ""
                 }
-                
             } message: {
                 Text("로그아웃 하시겠습니까?")
             }

@@ -26,8 +26,8 @@
 		3BE8ADC22BB40AA7005919CF /* QuestionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8ADC12BB40AA7005919CF /* QuestionData.swift */; };
 		3BE8ADC52BB40ACD005919CF /* QuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8ADC42BB40ACD005919CF /* QuestionViewModel.swift */; };
 		3BE8ADC72BB40B85005919CF /* DataTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8ADC62BB40B85005919CF /* DataTestView.swift */; };
-		9B2B3CB22BB3D80200EFBAE1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9B2B3CB12BB3D80200EFBAE1 /* GoogleService-Info.plist */; };
 		9B2B3CB42BB3DF5C00EFBAE1 /* AnswerLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2B3CB32BB3DF5C00EFBAE1 /* AnswerLabelView.swift */; };
+		9BE4C7712BB443A9000FBE83 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9BE4C7702BB443A9000FBE83 /* GoogleService-Info.plist */; };
 		D7014EC42BB3DBB000A8F05F /* AnswerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7014EC32BB3DBB000A8F05F /* AnswerDetailView.swift */; };
 		D7014EC62BB3F83300A8F05F /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7014EC52BB3F83300A8F05F /* AnswerCell.swift */; };
 		D7014EC82BB3FBEE00A8F05F /* EditAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7014EC72BB3FBEE00A8F05F /* EditAnswerView.swift */; };
@@ -50,8 +50,8 @@
 		3BE8ADC12BB40AA7005919CF /* QuestionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionData.swift; sourceTree = "<group>"; };
 		3BE8ADC42BB40ACD005919CF /* QuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewModel.swift; sourceTree = "<group>"; };
 		3BE8ADC62BB40B85005919CF /* DataTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTestView.swift; sourceTree = "<group>"; };
-		9B2B3CB12BB3D80200EFBAE1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9B2B3CB32BB3DF5C00EFBAE1 /* AnswerLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerLabelView.swift; sourceTree = "<group>"; };
+		9BE4C7702BB443A9000FBE83 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D7014EC32BB3DBB000A8F05F /* AnswerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerDetailView.swift; sourceTree = "<group>"; };
 		D7014EC52BB3F83300A8F05F /* AnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
 		D7014EC72BB3FBEE00A8F05F /* EditAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAnswerView.swift; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 				3BE8ADC32BB40AB7005919CF /* ViewModels */,
 				3B32CBB22BB3C194002484AB /* Views */,
 				3B32CB9F2BB3BFA2002484AB /* Assets.xcassets */,
-				9B2B3CB12BB3D80200EFBAE1 /* GoogleService-Info.plist */,
+				9BE4C7702BB443A9000FBE83 /* GoogleService-Info.plist */,
 				3B32CBA12BB3BFA2002484AB /* Preview Content */,
 			);
 			path = ARI;
@@ -268,7 +268,7 @@
 			files = (
 				3B32CBA32BB3BFA2002484AB /* Preview Assets.xcassets in Resources */,
 				3B32CBA02BB3BFA2002484AB /* Assets.xcassets in Resources */,
-				9B2B3CB22BB3D80200EFBAE1 /* GoogleService-Info.plist in Resources */,
+				9BE4C7712BB443A9000FBE83 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
