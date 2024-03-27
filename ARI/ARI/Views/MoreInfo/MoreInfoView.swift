@@ -14,6 +14,17 @@ struct MoreInfoView: View {
     
     @EnvironmentObject private var loginViewModel: LoginViewModel
     
+    private var userNickname: String {
+        if isLogin {
+            let userEmail = loginViewModel.userInfo?.email ?? "Unknown@"
+            let nickName = userEmail.split(separator: "@").first ?? "Unknown"
+            
+            return String(nickName)
+        } else {
+            return "Unknown"
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -23,10 +34,11 @@ struct MoreInfoView: View {
                             .foregroundStyle(.background2)
                         HStack {
                             VStack(alignment: .leading) {
-                                Text("ARI ~ % userinfo")
+                                Text("\(userNickname) ~ % userinfo")
                                 Text(isLogin ? "\(emailAddress)" : "로그아웃 상태입니다")
-                                
                             }
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(1)
                             .foregroundStyle(.text)
                             
                             Spacer()
@@ -62,7 +74,9 @@ struct MoreInfoView: View {
                         RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
                             .foregroundStyle(.background2)
                         VStack(alignment: .leading) {
-                            Text("ARI ~ % ari --version")
+                            Text("\(userNickname) ~ % ari --version")
+                                .minimumScaleFactor(0.5)
+                                .lineLimit(1)
                             Text("ARI")
                             Text("(Apple developer Random Interview)")
                                 .font(.subheadline)
@@ -79,20 +93,24 @@ struct MoreInfoView: View {
                             RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
                                 .foregroundStyle(.background2)
                             VStack(alignment: .leading) {
-                                Text("ARI ~ % ari --privacy-policy")
+                                Text("\(userNickname) ~ % ari --privacy-policy")
+                                    .minimumScaleFactor(0.5)
+                                    .lineLimit(1)
                             }
                             .padding()
                         }
                     }
                     
                     NavigationLink {
-                        Text("크레딧 및 연락처 뷰 연결")
+                        DevelopersDetailView(userNickname: userNickname)
                     } label: {
                         ZStack(alignment: .leading) {
                             RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
                                 .foregroundStyle(.background2)
                             VStack(alignment: .leading) {
-                                Text("ARI ~ % ari --developers")
+                                Text("\(userNickname) ~ % ari --developers")
+                                    .minimumScaleFactor(0.5)
+                                    .lineLimit(1)
                             }
                             .padding()
                         }
@@ -111,12 +129,17 @@ struct MoreInfoView: View {
             } message: {
                 Text("로그아웃 하시겠습니까?")
             }
+            .onAppear {
+                isLogin = loginViewModel.isSignedIn
+                emailAddress = loginViewModel.userInfo?.email ?? ""
+            }
             .fontDesign(.monospaced)
             .background(.backGround)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Text("더 보기")
                         .fontWeight(.bold)
+                        .foregroundStyle(.text)
                 }
             }
         }
