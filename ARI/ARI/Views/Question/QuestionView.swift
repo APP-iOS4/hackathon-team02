@@ -11,6 +11,8 @@ struct QuestionView: View {
     @EnvironmentObject private var questionModel: QuestionViewModel
     @EnvironmentObject private var loginViewModel: LoginViewModel
     
+    @AppStorage("isSubmitAnswer") var isSubmitAnswer: Bool = false
+    
     @State private var currentTime = Date()
     @State private var isShowingAnsweringView = false
     
@@ -27,9 +29,9 @@ struct QuestionView: View {
         }
     }
     
-    @State var dummyQuestion = "struct와 class의 차이를 설명하시오."
     @State var question = ""
-    @AppStorage("isSubmitAnswer") var isSubmitAnswer: Bool = false
+    
+    @Binding var selectedPage: Int
     
     private let screenWidth = UIScreen.main.bounds.size.width
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -111,10 +113,9 @@ struct QuestionView: View {
             
             Button(action: {
                 if isSubmitAnswer {
-                    // MARK: - 탭 바꾸기
-                    print("내 답변 탭으로 넘어가기")
-                    // 임시
+                    // MARK: - 임시
                     isSubmitAnswer.toggle()
+                    selectedPage = 1
                 } else if isSubmitAnswer == false && isLogin == true {
                     isShowingAnsweringView.toggle()
                 } else if isSubmitAnswer == false && isLogin == false {
@@ -153,7 +154,7 @@ struct QuestionView: View {
 }
 
 #Preview {
-    QuestionView()
+    QuestionView(selectedPage: .constant(0))
         .environmentObject(QuestionViewModel())
         .environmentObject(LoginViewModel())
         .preferredColorScheme(.dark)
