@@ -83,7 +83,7 @@ struct AnswerDetailView: View {
                     }
                     .padding(.vertical, 20)
                 }
-                .navigationTitle("나의 답변")
+                .navigationTitle("최근 답변")
                 .navigationBarTitleDisplayMode(.inline)
                 .fontDesign(.monospaced)
                 .toolbar(.hidden, for: .tabBar)
