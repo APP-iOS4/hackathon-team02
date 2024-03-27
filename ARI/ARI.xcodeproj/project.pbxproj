@@ -16,6 +16,9 @@
 		3B32CBAD2BB3BFE1002484AB /* MyAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B32CBAC2BB3BFE1002484AB /* MyAnswerView.swift */; };
 		3B32CBCF2BB3D098002484AB /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3B32CBCE2BB3D098002484AB /* FirebaseFirestore */; };
 		3B32CBD32BB3D098002484AB /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3B32CBD22BB3D098002484AB /* FirebaseFirestoreSwift */; };
+		3BADFB6F2BB416DC00F52A84 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BADFB6E2BB416DC00F52A84 /* LoginViewModel.swift */; };
+		3BADFB712BB416E900F52A84 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BADFB702BB416E900F52A84 /* User.swift */; };
+		3BADFB732BB4316500F52A84 /* LoginState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BADFB722BB4316500F52A84 /* LoginState.swift */; };
 		3BE8ADB62BB40A32005919CF /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 3BE8ADB52BB40A32005919CF /* GoogleSignIn */; };
 		3BE8ADB82BB40A32005919CF /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BE8ADB72BB40A32005919CF /* GoogleSignInSwift */; };
 		3BE8ADBB2BB40A4A005919CF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3BE8ADBA2BB40A4A005919CF /* FirebaseAuth */; };
@@ -39,6 +42,9 @@
 		3B32CB9F2BB3BFA2002484AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B32CBA22BB3BFA2002484AB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3B32CBAC2BB3BFE1002484AB /* MyAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAnswerView.swift; sourceTree = "<group>"; };
+		3BADFB6E2BB416DC00F52A84 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		3BADFB702BB416E900F52A84 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		3BADFB722BB4316500F52A84 /* LoginState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginState.swift; sourceTree = "<group>"; };
 		3BE8ADBC2BB40A58005919CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3BE8ADBE2BB40A8C005919CF /* MoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MoreInfoView.swift; path = ARI/Views/MoreInfo/MoreInfoView.swift; sourceTree = SOURCE_ROOT; };
 		3BE8ADC12BB40AA7005919CF /* QuestionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionData.swift; sourceTree = "<group>"; };
@@ -168,6 +174,8 @@
 			isa = PBXGroup;
 			children = (
 				3BE8ADC12BB40AA7005919CF /* QuestionData.swift */,
+				3BADFB722BB4316500F52A84 /* LoginState.swift */,
+				3BADFB702BB416E900F52A84 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -176,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				3BE8ADC42BB40ACD005919CF /* QuestionViewModel.swift */,
+				3BADFB6E2BB416DC00F52A84 /* LoginViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -275,13 +284,16 @@
 				3BE8ADBF2BB40A8C005919CF /* MoreInfoView.swift in Sources */,
 				3B2B035E2BB3D10C009B1DEA /* QuestionView.swift in Sources */,
 				3BE8ADC72BB40B85005919CF /* DataTestView.swift in Sources */,
+				3BADFB732BB4316500F52A84 /* LoginState.swift in Sources */,
 				3B32CB9C2BB3BFA1002484AB /* ARIApp.swift in Sources */,
+				3BADFB6F2BB416DC00F52A84 /* LoginViewModel.swift in Sources */,
 				3B32CBAD2BB3BFE1002484AB /* MyAnswerView.swift in Sources */,
 				D7014EC62BB3F83300A8F05F /* AnswerCell.swift in Sources */,
 				3B2B03612BB3D5E6009B1DEA /* DataTesting.swift in Sources */,
 				D7014EC42BB3DBB000A8F05F /* AnswerDetailView.swift in Sources */,
 				3BE8ADC22BB40AA7005919CF /* QuestionData.swift in Sources */,
 				3BE8ADC52BB40ACD005919CF /* QuestionViewModel.swift in Sources */,
+				3BADFB712BB416E900F52A84 /* User.swift in Sources */,
 				9B2B3CB42BB3DF5C00EFBAE1 /* AnswerLabelView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
