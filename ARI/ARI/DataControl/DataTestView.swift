@@ -15,6 +15,7 @@ struct DataTestView: View {
     @State var isLogin: Bool = false
     @State var myAnswer = ""
     @State var others: [String] = []
+    @State var myQuestion: [QuestionData] = []
     
     var body: some View {
         ScrollView {
@@ -32,6 +33,11 @@ struct DataTestView: View {
                 Button {
                     loginViewModel.loginGoogle {
                         isLogin = loginViewModel.isSignedIn
+                        
+                        Task {
+                            await questionModel.loadMyAnsweredQuestion()
+                            myQuestion = questionModel.answeredQuestions
+                        }
                     }
                 } label: {
                     Text("로그인 버튼")
@@ -40,6 +46,10 @@ struct DataTestView: View {
                 Button {
                     loginViewModel.logoutGoogle {
                         isLogin = loginViewModel.isSignedIn
+                        Task {
+                            await questionModel.loadMyAnsweredQuestion()
+                            myQuestion = questionModel.answeredQuestions
+                        }
                     }
                 } label: {
                     Text("로그아웃 버튼")
@@ -51,7 +61,7 @@ struct DataTestView: View {
                     Text("내 답변 버튼")
                 }
                 
-    
+                
                 Text(myAnswer)
                 
                 Button {
@@ -69,8 +79,16 @@ struct DataTestView: View {
                 } label: {
                     Text("다른사람 답 불러오기 버튼")
                 }
-
+                
+                ForEach (0..<myQuestion.count, id: \.self) { index in
+                    Text(myQuestion[index].question)
+                        .foregroundStyle(.white)
+                        .font(.largeTitle)
+                }
             }
+        }
+        .onAppear {
+            isLogin = loginViewModel.isSignedIn
         }
     }
 }

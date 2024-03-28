@@ -21,7 +21,6 @@ class LoginViewModel: ObservableObject {
     
     /// 현재 로그인 된 정보가 있는가를 리턴하는 함수
     var isSignedIn: Bool {
-        fetchUserData()
         return UserDefaults.standard.string(forKey: "userID") == nil ? false : true
     }
     
@@ -65,8 +64,11 @@ class LoginViewModel: ObservableObject {
                 let user = User(id: result.user.uid, email: result.user.email ?? "이메일 정보 없음")
                 // 현재 유저 정보 저장
                 self.saveUserDataToUserDefaults(User: user)
-                self.fetchUserData()
-                
+                self.fetchUserInfo()
+
+                print("유저 디폴트 \(UserDefaults.standard.string(forKey: "userID"))")
+                print("유저 디폴트 \(UserDefaults.standard.string(forKey: "userEmail"))")
+                      
                 completion()
             }
         }
@@ -80,7 +82,7 @@ class LoginViewModel: ObservableObject {
             // 현재 유저 정보 삭제
             // self.userInfo = nil
             deleteUserDataFromUserDefaults()
-            self.fetchUserData()
+            self.fetchUserInfo()
             completion()
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
@@ -100,7 +102,7 @@ class LoginViewModel: ObservableObject {
     }
     
     /// UserDefaults의 데이터 userInfo에 저장
-    func fetchUserData() {
+    func fetchUserInfo() {
         if let userID = UserDefaults.standard.string(forKey: "userID"), let userEmail = UserDefaults.standard.string(forKey: "userEmail") {
             userInfo = User(id: userID, email: userEmail)
         }

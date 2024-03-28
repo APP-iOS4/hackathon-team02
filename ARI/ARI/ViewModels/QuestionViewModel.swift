@@ -53,6 +53,7 @@ class QuestionViewModel: ObservableObject {
     /// 문제 데이터 fetch
     func fetchQuestions() async {
         await loadQuestions()
+        await loadMyAnsweredQuestion()
     }
     
     /// 랜덤으로 문제 하나를 가져오기
@@ -61,8 +62,6 @@ class QuestionViewModel: ObservableObject {
     func getRandomQuestion() -> QuestionData {
         return questions.randomElement() ?? QuestionData(id: "error", question: "저장된 질문이 없습니다.")
     }
-    
-    
     
     /// 내 답을 추가하는 함수
     /// - Parameters answer: 답 내용
@@ -76,6 +75,7 @@ class QuestionViewModel: ObservableObject {
                 try await dataBase.collection("Questions").document(questionID).collection("Answer").document(userID).setData([
                     "answer": answer
                 ])
+                await loadMyAnsweredQuestion()
             } catch {
                 print("Error writing document: \(error)")
             }
@@ -83,7 +83,7 @@ class QuestionViewModel: ObservableObject {
     }
     
     /// 나의 답을 리턴하는 함수
-    /// 답변을 하지 않았을 때 ""를 리턴한다.
+    /// 답변을 하지 않았을 때 "" 를 리턴한다.
     func loadMyAnswer(questionID: String, userID: String) async -> String {
         var myAnswer: String = ""
         
@@ -125,9 +125,38 @@ class QuestionViewModel: ObservableObject {
         return othersAnswer
     }
     
-    func loadMyAnsweredQuestion() {
-        var myAnsweredQuestion: [QuestionData] = []
+    
+    // 로그인과 로그아웃시 실행해줘야 합니다 ㅜㅜ
+    func loadMyAnsweredQuestion() async {
+        guard let userID = UserDefaults.standard.string(forKey: "userID") else {
+            answeredQuestions = []
+            return
+        }
+        var savedAnsweredQuestions: [QuestionData] = []
         
+        let dataBase = Firestore.firestore()
+        for question in questions {
+            
+            let questionID = question.id
+            let questionString = question.question
+            
+            do {
+                let snapshots = try await dataBase.collection("Questions").document(questionID).collection("Answer").getDocuments()
+                for doc in snapshots.documents {
+                    if doc.documentID == userID {
+                        let questionSnapshots = try await dataBase.collection("Question").getDocuments()
+                    
+                        let newAnswerQuestion: QuestionData = QuestionData(id: questionID, question: questionString)
+                        savedAnsweredQuestions.append(newAnswerQuestion)
+                        
+                        print("새로운 데이터 생성")
+                    }
+                }
+            } catch {
+                print("Error getting documents: \(error)")
+            }
+        }
         
+        answeredQuestions = savedAnsweredQuestions
     }
 }
