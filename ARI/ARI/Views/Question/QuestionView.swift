@@ -8,21 +8,33 @@
 import SwiftUI
 
 struct QuestionView: View {
+    @EnvironmentObject private var questionModel: QuestionViewModel
+    @EnvironmentObject private var loginViewModel: LoginViewModel
+    
+    @StateObject private var questionUserDefaultsClient = QuestionUserDefaultsClient()
+    
     @State private var currentTime = Date()
     @State private var isShowingAnsweringView = false
+    
     @State private var isShowingLoginAlert = false
     @State private var isLogin = false
-    
     private var userNickname: String {
         if isLogin {
-            return "User"
+            let userEmail = loginViewModel.userInfo?.email ?? "Unknown@"
+            let nickName = userEmail.split(separator: "@").first ?? "Unknown"
+            
+            return String(nickName)
         } else {
             return "Unknown"
         }
     }
     
-    @State var dummyQuestion = "struct와 class의 차이를 설명하시오."
-    @AppStorage("isSubmitAnswer") var isSubmitAnswer: Bool = false
+    @State var question = ""
+    @State private var remainingHours = 0
+    @State private var remainingMinutes = 0
+    @State private var remainingSeconds = 0
+    
+    @Binding var selectedPage: Int
     
     private let screenWidth = UIScreen.main.bounds.size.width
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -53,33 +65,61 @@ struct QuestionView: View {
                     Text("\(userNickname)")
                     Text("~ % today question")
                 }
+                
+                Text("Remaining time: \(remainingHours):\(remainingMinutes):\(remainingSeconds)")
+                    .onReceive(timer) { _ in
+                        self.calculateRemainingTime()
+                    }
+                    .onAppear {
+                        self.calculateRemainingTime()
+                    }
+                    .fontDesign(.monospaced)
+                    .foregroundStyle(Color.accent)
+                    .font(.subheadline)
             }
             .fontDesign(.monospaced)
             .foregroundStyle(Color.accent)
             .font(.subheadline)
-            .padding(.bottom, 50)
+            .padding(.bottom, 30)
             
             Spacer()
             
-            // Firebase에서 문제 받아서와서 나타내기
             HStack {
                 Rectangle()
                     .fill(Color.background2)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay {
-                        Text("\(dummyQuestion)")
-                            .font(.title)
-                            .fontDesign(.monospaced)
-                            .foregroundStyle(Color.accent)
-                            .padding()
-                            .minimumScaleFactor(0.5)
+                        if !questionUserDefaultsClient.isCheckingQuestion {
+                            Text("오늘의 질문을 확인해주세요.")
+                                .padding()
+                                .multilineTextAlignment(.center)
+                        } else {
+                            Text("\(questionUserDefaultsClient.question)")
+                                .padding()
+                                .multilineTextAlignment(.center)
+                        }
+                        
                     }
+                    .font(.title)
+                    .fontDesign(.monospaced)
+                    .foregroundStyle(Color.accent)
+                    .minimumScaleFactor(0.5)
             }
             
-            Spacer()
+            // Test
+            /*
+            Button {
+                questionUserDefaultsClient.isCheckingQuestion.toggle()
+            } label: {
+                Text("test")
+            }
+            */
+            
+            
+            
             
             HStack {
-                if isSubmitAnswer {
+                if questionUserDefaultsClient.isSubmitAnswer {
                     HStack(alignment: .top) {
                         Text("\(userNickname) ~ % ")
                         Text("Answer Submission Completed")
@@ -97,24 +137,41 @@ struct QuestionView: View {
                 .padding(EdgeInsets(top: 50, leading: 0, bottom: 10, trailing: 0))
             
             Button(action: {
-                if isSubmitAnswer {
-                    // MARK: - 탭 바꾸기
-                    print("내 답변 탭으로 넘어가기")
-                    // 임시
-                    isSubmitAnswer.toggle()
-                } else if isSubmitAnswer == false && isLogin == true {
+                if !questionUserDefaultsClient.isCheckingQuestion {
+                    Task {
+                        await saveTime()
+                    }
+                    
+                    questionUserDefaultsClient.question = questionModel.getRandomQuestion().question
+                    questionUserDefaultsClient.isCheckingQuestion.toggle()
+                } else if questionUserDefaultsClient.isSubmitAnswer {
+                    // MARK: - 임시
+                    questionUserDefaultsClient.isSubmitAnswer.toggle()
+                    selectedPage = 1
+                } else if questionUserDefaultsClient.isSubmitAnswer == false && isLogin == true {
                     isShowingAnsweringView.toggle()
-                } else if isSubmitAnswer == false && isLogin == false {
+                } else if questionUserDefaultsClient.isSubmitAnswer == false && isLogin == false {
                     isShowingLoginAlert.toggle()
                 }
             }, label: {
-                AccentColorButtonView(title: isSubmitAnswer ? "내 답변 보러가기⌷" : "답변하기⌷")
+                if !questionUserDefaultsClient.isCheckingQuestion {
+                    AccentColorButtonView(title: "질문 확인하기⌷")
+                } else {
+                    AccentColorButtonView(title: questionUserDefaultsClient.isSubmitAnswer ? "내 답변 보러가기⌷" : "답변하기⌷")
+                }
             })
         }
         .padding()
         .background(Color.backGround)
+        .onAppear {
+            isLogin = loginViewModel.isSignedIn
+            
+            checkTime()
+        }
+        
         .sheet(isPresented: $isShowingAnsweringView) {
-            AnsweringView(question: $dummyQuestion, isSubmitAnswer: $isSubmitAnswer)
+            AnsweringView(question: $questionUserDefaultsClient.question,
+                          isSubmitAnswer: $questionUserDefaultsClient.isSubmitAnswer)
         }
         
         .alert("로그인 하시겠습니까?", isPresented: $isShowingLoginAlert) {
@@ -123,9 +180,9 @@ struct QuestionView: View {
             })
             
             Button(action: {
-                // MARK: - 구글 로그인
-                print("구글 로그인")
-                isLogin.toggle()
+                loginViewModel.loginGoogle {
+                    isLogin = loginViewModel.isSignedIn
+                }
             }, label: {
                 Text("로그인 하기")
             })
@@ -136,6 +193,69 @@ struct QuestionView: View {
 }
 
 #Preview {
-    QuestionView()
+    QuestionView(selectedPage: .constant(0))
+        .environmentObject(QuestionViewModel())
+        .environmentObject(LoginViewModel())
         .preferredColorScheme(.dark)
+}
+
+extension QuestionView {
+    func saveTime() async {
+        let koreaTimeZone = TimeZone(identifier: "Asia/Seoul")!
+        var nowInKorea = Date()
+
+        if let koreaDate = Calendar.current.date(byAdding: .second, value: koreaTimeZone.secondsFromGMT(), to: nowInKorea) {
+            nowInKorea = koreaDate
+        }
+        
+        UserDefaults.standard.set(nowInKorea, forKey: "savedTime")
+        
+        if let savedTime = UserDefaults.standard.object(forKey: "savedTime") as? Date {
+            print("저장된 시각: \(savedTime)")
+        }
+        print("시간이 저장되었습니다.")
+    }
+    
+    func checkTime() {
+        if let savedTime = UserDefaults.standard.object(forKey: "savedTime") as? Date {
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "ko_KR")
+            formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+            formatter.dateStyle = .medium
+            
+            let savedTimeString = formatter.string(from: savedTime)
+            let currentTime = formatter.string(from: Date())
+
+            var isFetchingData = (savedTimeString == currentTime)
+            
+            if isFetchingData {
+                print("문제를 유지합니다.")
+            } else {
+                questionUserDefaultsClient.question = questionModel.getRandomQuestion().question
+                questionUserDefaultsClient.isCheckingQuestion = false
+                questionUserDefaultsClient.isSubmitAnswer = false
+                print("문제가 변경되었습니다.")
+            }
+        }
+    }
+    
+    func calculateRemainingTime() {
+           let now = Date()
+           let calendar = Calendar.current
+           let midnight = calendar.startOfDay(for: now).addingTimeInterval(24 * 60 * 60) // 자정
+           
+           let components = calendar.dateComponents([.hour, .minute, .second], from: now, to: midnight)
+           remainingHours = components.hour ?? 0
+           remainingMinutes = components.minute ?? 0
+           remainingSeconds = components.second ?? 0
+       }
+    
+//    func timeString(from timeInterval: TimeInterval) -> String {
+//        let formatter = DateComponentsFormatter()
+//        formatter.unitsStyle = .full
+//        formatter.allowedUnits = [.hour, .minute, .second]
+//        formatter.zeroFormattingBehavior = .pad
+//        
+//        return formatter.string(from: timeInterval) ?? ""
+//    }
 }

@@ -12,7 +12,7 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selectedPage) {
-            QuestionView()
+            QuestionView(selectedPage: $selectedPage)
                 .tabItem {
                     Image(systemName: "questionmark.app")
                     Text("오늘의 질문")
