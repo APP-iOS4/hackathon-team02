@@ -32,6 +32,7 @@ struct AnswerDetailView: View {
                     }
                     .padding(EdgeInsets(top: 20, leading: 10, bottom: 0, trailing: 10))
                     
+                    // MARK: - 문제
                     if !recentQuestion.isEmpty {
                         MyQuestionCell(number: 0, question: recentQuestion[0])
                     } else {
@@ -44,6 +45,7 @@ struct AnswerDetailView: View {
                         Spacer()
                     }
                     
+                    // MARK: - 내 답변
                     if selectedQuestionIndex < myAnswerExample.count {
                         AnswerCell(answer: myAnswerExample[selectedQuestionIndex])
                             .padding(.bottom, 30)
@@ -59,6 +61,7 @@ struct AnswerDetailView: View {
                         Spacer()
                     }
                     
+                    // MARK: - 다른 사람 답변
                     LazyVStack {
                         ForEach(recentQuestion.indices, id: \.self) { index in
                             if selectedQuestionIndex < otherAnswerExample.count {

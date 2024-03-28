@@ -61,7 +61,7 @@
 		42A7E69E2BB4101A00AB9DED /* AnsweringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsweringView.swift; sourceTree = "<group>"; };
 		42A7E6A02BB4102F00AB9DED /* AccentColorButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentColorButtonView.swift; sourceTree = "<group>"; };
 		9B2B3CB32BB3DF5C00EFBAE1 /* AnswerLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerLabelView.swift; sourceTree = "<group>"; };
-		9BE4C7702BB443A9000FBE83 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9BE4C7702BB443A9000FBE83 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9BE746BE2BB465990022CC50 /* DevelopersDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopersDetailView.swift; sourceTree = "<group>"; };
 		D7014EC32BB3DBB000A8F05F /* AnswerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerDetailView.swift; sourceTree = "<group>"; };
 		D7014EC52BB3F83300A8F05F /* AnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
@@ -162,9 +162,9 @@
 			children = (
 				3B32CBAC2BB3BFE1002484AB /* MyAnswerView.swift */,
 				D7014EC32BB3DBB000A8F05F /* AnswerDetailView.swift */,
-				D7014EC52BB3F83300A8F05F /* AnswerCell.swift */,
 				D7014EC72BB3FBEE00A8F05F /* EditAnswerView.swift */,
 				9B2B3CB32BB3DF5C00EFBAE1 /* AnswerLabelView.swift */,
+				D7014EC52BB3F83300A8F05F /* AnswerCell.swift */,
 				D7014EC92BB4299A00A8F05F /* MyQuestionCell.swift */,
 			);
 			path = MyAnswer;
