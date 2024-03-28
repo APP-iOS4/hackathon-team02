@@ -8,34 +8,35 @@
 import SwiftUI
 
 struct AnswerDetailView: View {
-    
     var answer: String
+    @StateObject private var questionModel = QuestionViewModel()
+    @StateObject private var loginViewModel = LoginViewModel()
     
-    @EnvironmentObject private var loginViewModel: LoginViewModel
-    @Environment(\.dismiss) var dismiss
-    
+    @Namespace private var namespace
     @State private var isShowingEditView = false
-    @State private var isLogin = false
-    @State var selectedQuestionIndex: Int = 0
-    @State var recentQuestion: [String] = []
+    @State private var selectedQuestionIndex: Int = 0
+    @State private var myAnswerExample: [String] = []
+    @State private var otherAnswerExample: [String] = []
     
-    @Binding var myAnswerExample: [String]
-    @Binding var otherAnswerExample: [String]
-    
+    @State private var recentQuestion: [QuestionData] = [.init(id: "123", question: "Example Recent Question")]
     
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
                     HStack {
-                        Text("for question in questions {")
+                        Text("for question in \(recentQuestion.map { $0.question }) {")
+                            .font(.subheadline)
                             .foregroundStyle(.accent)
                         Spacer()
                     }
-                    .padding(.vertical, 20)
+                    .padding(EdgeInsets(top: 20, leading: 10, bottom: 0, trailing: 10))
                     
-                    // MARK: - 질문
-                    MyQuestionCell(recentQuestion: $recentQuestion, selectedQuestionIndex: selectedQuestionIndex)
+                    if !recentQuestion.isEmpty {
+                        MyQuestionCell(number: 0, question: recentQuestion[0])
+                    } else {
+                        Text("문제가 없습니다")
+                    }
                     
                     HStack {
                         Text("myAnswer()")
@@ -43,8 +44,6 @@ struct AnswerDetailView: View {
                         Spacer()
                     }
                     
-                    // MARK: - 답변
-                    // 선택된 질문 인덱스와 답변의 수 비교
                     if selectedQuestionIndex < myAnswerExample.count {
                         AnswerCell(answer: myAnswerExample[selectedQuestionIndex])
                             .padding(.bottom, 30)
@@ -61,7 +60,6 @@ struct AnswerDetailView: View {
                     }
                     
                     LazyVStack {
-                        // 임시로 내답변이랑 똑같이 해둠,,,,,
                         ForEach(recentQuestion.indices, id: \.self) { index in
                             if selectedQuestionIndex < otherAnswerExample.count {
                                 AnswerCell(answer: otherAnswerExample[selectedQuestionIndex])
@@ -74,25 +72,37 @@ struct AnswerDetailView: View {
                     }
                     HStack {
                         Text("}⌷")
+                            .font(.subheadline)
                             .foregroundStyle(.accent)
                         Spacer()
                     }
-                    .padding(.vertical, 20)
+                    .padding(EdgeInsets(top: 20, leading: 10, bottom: 20, trailing: 10))
                 }
                 .fontDesign(.monospaced)
-                .toolbar(.hidden, for: .tabBar)
+                .background(Color.backGround)
                 .padding(10)
             }
             .padding(1)
             .fontDesign(.monospaced)
-            .background(.backGround)
         }
         .onAppear {
-            isLogin = loginViewModel.isSignedIn
+            Task {
+                if let userID = loginViewModel.userInfo?.id {
+                    let myAnswer = await questionModel.loadMyAnswer(questionID: recentQuestion[selectedQuestionIndex].id, userID: userID)
+                    let othersAnswer = await questionModel.loadOthersAnswer(questionID: recentQuestion[selectedQuestionIndex].id, userID: userID)
+                    
+                    myAnswerExample = [myAnswer]
+                    otherAnswerExample = othersAnswer
+                } else {
+                    print("유저 정보 없음")
+                }
+            }
         }
+        .navigationTitle("최근 답변")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            if selectedQuestionIndex < myAnswerExample.count && isLogin == true {
-                ToolbarItem(placement: .topBarTrailing) {
+            if !myAnswerExample.isEmpty && loginViewModel.isSignedIn {
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
                         Button(action: {
                             isShowingEditView.toggle()
@@ -100,11 +110,10 @@ struct AnswerDetailView: View {
                             Label("수정하기", systemImage: "square.and.pencil")
                         })
                         Button(role: .destructive) {
-                            dismiss()
+                            // TODO: - 삭제 기능 추가
                         } label: {
                             Label("삭제하기", systemImage: "trash")
                         }
-                        
                     } label: {
                         Image(systemName: "ellipsis")
                             .resizable()
@@ -115,17 +124,16 @@ struct AnswerDetailView: View {
                     }
                 }
             }
-            
         }
-        .navigationTitle("최근 답변")
-        .navigationBarTitleDisplayMode(.inline)
         .fullScreenCover(isPresented: $isShowingEditView) {
             EditAnswerView(isShowingEditView: $isShowingEditView, myAnswerExample: $myAnswerExample, recentQuestion: $recentQuestion, selectedAnswerIndex: selectedQuestionIndex)
         }
     }
 }
 
-//#Preview {
-//    AnswerDetailView(answer: "답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다.", exampleRecent: .constant(["Question 1", "Question 2"]), myAnswerExample: .constant(["My Answer"]), otherAnswerExample: .constant(["Other Answer 1", "Other Answer 2"]), selectedQuestionIndex: 0)
-//        .preferredColorScheme(.dark)
-//}
+#Preview {
+    AnswerDetailView(answer: "123")
+               .preferredColorScheme(.dark)
+               .environmentObject(LoginViewModel())
+               .environmentObject(QuestionViewModel())
+}

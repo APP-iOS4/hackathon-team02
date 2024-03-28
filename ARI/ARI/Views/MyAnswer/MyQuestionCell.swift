@@ -8,12 +8,10 @@
 import SwiftUI
 
 struct MyQuestionCell: View {
+    var number: Int
+    var question: QuestionData
     
     @State private var questionHeight: CGFloat = .zero
-    
-    @Binding var recentQuestion: [String]
-
-    var selectedQuestionIndex: Int
     
     var body: some View {
         ZStack {
@@ -24,10 +22,10 @@ struct MyQuestionCell: View {
             //MARK: - 문제
             HStack {
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("#\(selectedQuestionIndex)")
+                    Text("#\(number)")
                         .foregroundStyle(.accent)
                         
-                    Text("\(recentQuestion[selectedQuestionIndex])")
+                    Text(question.question)
                         .background(
                             GeometryReader { geometry in
                                 Color.clear.onAppear {
@@ -45,6 +43,7 @@ struct MyQuestionCell: View {
     }
 }
 
-#Preview {
-    MyQuestionCell(recentQuestion: .constant(["Question 1", "Question 2"]), selectedQuestionIndex: 0)
-}
+
+//#Preview {
+//    MyQuestionCell(recentQuestion: .constant([.init(id: "123", question: "연습문제")]), selectedQuestionIndex: 0)
+//}

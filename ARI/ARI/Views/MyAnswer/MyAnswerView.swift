@@ -73,7 +73,7 @@ struct MyAnswerView: View {
                     }
                     
                     ScrollView {
-                        LazyVStack {
+                        LazyVStack(spacing: 5) {
                             HStack {
                                 Text("for question in \(isShowingRecent ? "recentAnswers" : "favorites") {")
                                     .font(.subheadline)
@@ -83,7 +83,7 @@ struct MyAnswerView: View {
                             .padding(EdgeInsets(top: 15, leading: 10, bottom: 0, trailing: 10))
                             if isShowingRecent {
                                 ForEach(recentQuestion.indices, id: \.self) { index in
-                                    NavigationLink(destination: AnswerDetailView(answer: recentQuestion[index].question, selectedQuestionIndex: index, recentQuestion: recentQuestion.map{ $0.question }, myAnswerExample: $myAnswerDummy, otherAnswerExample: $otherAnswerDummy)) {
+                                    NavigationLink(destination: AnswerDetailView(answer: recentQuestion[index].question)) {
                                         AnswerLabelView(number: recentQuestion.count - index - 1, question: recentQuestion[index].question)
                                     }
                                     .contextMenu {
@@ -96,7 +96,7 @@ struct MyAnswerView: View {
                                 }
                             } else {
                                 ForEach(favoriteQuestion.indices, id: \.self) { index in
-                                    NavigationLink(destination: AnswerDetailView(answer: favoriteQuestion[index].question, selectedQuestionIndex: index, recentQuestion: favoriteQuestion.map{ $0.question }, myAnswerExample: $myAnswerDummy, otherAnswerExample: $otherAnswerDummy)) {
+                                    NavigationLink(destination: AnswerDetailView(answer: recentQuestion[index].question)) {
                                         AnswerLabelView(number: favoriteQuestion.count - index - 1, question: favoriteQuestion[index].question)
                                     }
                                     .contextMenu {
@@ -128,10 +128,10 @@ struct MyAnswerView: View {
                 } else {
                     ZStack(alignment: .leading) {
                         VStack(alignment: .leading) {
-                                Text("Unknown ~ % my-answers\n")
-                                Text("ERROR: Access denied.")
-                                    .fontWeight(.bold)
-                                Text("""
+                            Text("Unknown ~ % my-answers\n")
+                            Text("ERROR: Access denied.")
+                                .fontWeight(.bold)
+                            Text("""
                                     
                                     
                                     로그아웃 상태입니다.
@@ -140,7 +140,7 @@ struct MyAnswerView: View {
                             Spacer()
                         }
                         .font(.subheadline)
-                        .foregroundStyle(.text)
+                        .foregroundStyle(.accent)
                         .padding()
                         
                         HStack {
@@ -163,6 +163,7 @@ struct MyAnswerView: View {
                             Spacer()
                         }
                     }
+                    
                 }
             }
             .fontDesign(.monospaced)

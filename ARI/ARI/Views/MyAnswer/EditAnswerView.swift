@@ -12,7 +12,7 @@ struct EditAnswerView: View {
     
     @Binding var isShowingEditView: Bool
     @Binding var myAnswerExample: [String]
-    @Binding var recentQuestion: [String]
+    @Binding var recentQuestion: [QuestionData]
     @State private var editedAnswer: String = ""
     @State private var editHeight: CGFloat = .zero
 
@@ -22,7 +22,7 @@ struct EditAnswerView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("\(recentQuestion[selectedAnswerIndex])")
+                Text("\(recentQuestion)")
                     .fontDesign(.monospaced)
                     .foregroundStyle(Color.accent)
                     .font(.subheadline)
