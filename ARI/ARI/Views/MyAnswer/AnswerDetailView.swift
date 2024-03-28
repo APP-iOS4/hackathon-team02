@@ -10,14 +10,17 @@ import SwiftUI
 struct AnswerDetailView: View {
     
     var answer: String
-    
+    @EnvironmentObject private var questionModel: QuestionViewModel
     @EnvironmentObject private var loginViewModel: LoginViewModel
+    
     @Environment(\.dismiss) var dismiss
+    
+    @State var question: QuestionData = QuestionData(id: "d", question: "qq")
     
     @State private var isShowingEditView = false
     @State private var isLogin = false
     @State var selectedQuestionIndex: Int = 0
-    @State var recentQuestion: [String] = []
+    @State var recentQuestion: QuestionData
     
     @Binding var myAnswerExample: [String]
     @Binding var otherAnswerExample: [String]
@@ -28,17 +31,21 @@ struct AnswerDetailView: View {
             ScrollView {
                 VStack {
                     HStack {
-                        Text("for question in questions {")
+                        Text("for question in questions {") // 코드 블록 시작 부분 표시
                             .foregroundStyle(.accent)
                         Spacer()
                     }
                     .padding(.vertical, 20)
                     
                     // MARK: - 질문
-                    MyQuestionCell(recentQuestion: $recentQuestion, selectedQuestionIndex: selectedQuestionIndex)
+                    if !recentQuestion.question.isEmpty {
+                        MyQuestionCell(number: 0, question: recentQuestion)
+                    } else {
+                        Text("문제가 없습니다")
+                    }
                     
                     HStack {
-                        Text("myAnswer()")
+                        Text("myAnswer()") // 사용자 답변 표시
                             .foregroundStyle(.accent)
                         Spacer()
                     }
@@ -55,22 +62,21 @@ struct AnswerDetailView: View {
                     Spacer()
                     
                     HStack {
-                        Text("otherAnswer()")
+                        Text("otherAnswer()") // 다른 답변 표시
                             .foregroundStyle(.accent)
                         Spacer()
                     }
                     
                     LazyVStack {
-                        // 임시로 내답변이랑 똑같이 해둠,,,,,
-                        ForEach(recentQuestion.indices, id: \.self) { index in
-                            if selectedQuestionIndex < otherAnswerExample.count {
-                                AnswerCell(answer: otherAnswerExample[selectedQuestionIndex])
-                                    .padding(.bottom, 30)
-                            } else {
-                                AnswerCell(answer: "답변이 없습니다")
-                                    .padding(.bottom, 30)
-                            }
-                        }
+                        //                        ForEach(recentQuestion) { question in
+                        //                                if selectedQuestionIndex < otherAnswerExample.count {
+                        //                                    AnswerCell(answer: otherAnswerExample[selectedQuestionIndex])
+                        //                                        .padding(.bottom, 30)
+                        //                                } else {
+                        //                                    AnswerCell(answer: "답변이 없습니다")
+                        //                                        .padding(.bottom, 30)
+                        //                                }
+                        //                            }
                     }
                     HStack {
                         Text("}⌷")
@@ -87,8 +93,12 @@ struct AnswerDetailView: View {
             .fontDesign(.monospaced)
             .background(.backGround)
         }
-        .onAppear {
-            isLogin = loginViewModel.isSignedIn
+        .task {
+            let getRandomQuestion = await questionModel.getRandomQuestion()
+            DispatchQueue.main.async {
+                recentQuestion = getRandomQuestion
+                
+            }
         }
         .toolbar {
             if selectedQuestionIndex < myAnswerExample.count && isLogin == true {
@@ -104,7 +114,6 @@ struct AnswerDetailView: View {
                         } label: {
                             Label("삭제하기", systemImage: "trash")
                         }
-                        
                     } label: {
                         Image(systemName: "ellipsis")
                             .resizable()
@@ -126,6 +135,6 @@ struct AnswerDetailView: View {
 }
 
 //#Preview {
-//    AnswerDetailView(answer: "답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다.", exampleRecent: .constant(["Question 1", "Question 2"]), myAnswerExample: .constant(["My Answer"]), otherAnswerExample: .constant(["Other Answer 1", "Other Answer 2"]), selectedQuestionIndex: 0)
+//    AnswerDetailView(answer: "123", myAnswerExample: .constant["Asd"], otherAnswerExample: .constant["Asd"])
 //        .preferredColorScheme(.dark)
 //}

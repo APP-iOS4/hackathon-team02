@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct AnswerCell: View {
-    @State private var answerHeight: CGFloat = .zero
     
     var answer: String
+    
+    @State private var answerHeight: CGFloat = .zero
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
