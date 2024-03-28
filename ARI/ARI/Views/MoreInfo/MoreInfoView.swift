@@ -79,26 +79,26 @@ struct MoreInfoView: View {
                             Text("ARI")
                             Text("(Apple developer Random Interview)")
                                 .font(.subheadline)
-                            Text("Version 0.0.9")
+                            Text("Version 1.0.0")
                         }
                         .foregroundStyle(.text)
                         .padding()
                     }
                     
-                    NavigationLink {
-                        Text("개인정보처리방침 뷰 연결")
-                    } label: {
-                        ZStack(alignment: .leading) {
-                            RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                                .foregroundStyle(.background2)
-                            VStack(alignment: .leading) {
-                                Text("\(userNickname) ~ % ari --privacy-policy")
-                                    .minimumScaleFactor(0.5)
-                                    .lineLimit(1)
-                            }
-                            .padding()
-                        }
-                    }
+//                    NavigationLink {
+//                        Text("개인정보처리방침 뷰 연결")
+//                    } label: {
+//                        ZStack(alignment: .leading) {
+//                            RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+//                                .foregroundStyle(.background2)
+//                            VStack(alignment: .leading) {
+//                                Text("\(userNickname) ~ % ari --privacy-policy")
+//                                    .minimumScaleFactor(0.5)
+//                                    .lineLimit(1)
+//                            }
+//                            .padding()
+//                        }
+//                    }
                     
                     NavigationLink {
                         DevelopersDetailView(userNickname: userNickname)
@@ -123,6 +123,8 @@ struct MoreInfoView: View {
                     loginViewModel.logoutGoogle {
                         isLogin = loginViewModel.isSignedIn
                         emailAddress = ""
+                        
+                        
                     }
                 }
             } message: {

@@ -121,9 +121,10 @@ struct MyAnswerView: View {
                         if isShowingRecent {
                             Task {
                                 await questionModel.loadMyAnsweredQuestion()
+                                recentQuestion = questionModel.answeredQuestions.reversed()
                             }
                             
-                            recentQuestion = questionModel.answeredQuestions.reversed()
+                          
                             // print("Refresh")
                         }
                     }
@@ -152,6 +153,12 @@ struct MyAnswerView: View {
                                 DispatchQueue.main.async {
                                     loginViewModel.loginGoogle {
                                         isLogin = loginViewModel.isSignedIn
+                                        
+                                        Task {
+                                            await questionModel.loadMyAnsweredQuestion()
+                                            recentQuestion = questionModel.answeredQuestions.reversed()
+                                        }
+                                      
                                     }
                                 }
                             } label: {
@@ -174,8 +181,9 @@ struct MyAnswerView: View {
                 isLogin = loginViewModel.isSignedIn
                 Task {
                     await questionModel.loadMyAnsweredQuestion()
+                    recentQuestion = questionModel.answeredQuestions.reversed()
                 }
-                recentQuestion = questionModel.answeredQuestions.reversed()
+              
             }
         }
     }

@@ -33,13 +33,6 @@ struct ContentView: View {
                     Text("더 보기")
                 }
                 .tag(2)
-            
-            DataTestView()
-                .tabItem {
-                    Image(systemName: "list.bullet")
-                    Text("데이터 테스트")
-                }
-                .tag(3)
         }
         
     }

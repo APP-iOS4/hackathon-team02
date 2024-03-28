@@ -21,7 +21,7 @@ class LoginViewModel: ObservableObject {
     
     /// 현재 로그인 된 정보가 있는가를 리턴하는 함수
     var isSignedIn: Bool {
-        return userInfo == nil ? false : true
+        return UserDefaults.standard.string(forKey: "userID") == nil ? false : true
     }
     
     /// 구글 로그인 실행
