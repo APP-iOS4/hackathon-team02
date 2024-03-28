@@ -96,7 +96,7 @@ struct MyAnswerView: View {
                                 }
                             } else {
                                 ForEach(favoriteQuestion.indices, id: \.self) { index in
-                                    NavigationLink(destination: AnswerDetailView(answer: recentQuestion[index].question)) {
+                                    NavigationLink(destination: AnswerDetailView(answer: favoriteQuestion[index].question)) {
                                         AnswerLabelView(number: favoriteQuestion.count - index - 1, question: favoriteQuestion[index].question)
                                     }
                                     .contextMenu {
@@ -118,12 +118,14 @@ struct MyAnswerView: View {
                         }
                     }
                     .refreshable {
-                        Task {
-                            await questionModel.fetchQuestions()
+                        if isShowingRecent {
+                            Task {
+                                await questionModel.loadMyAnsweredQuestion()
+                            }
+                            
+                            recentQuestion = questionModel.answeredQuestions
+                            // print("Refresh")
                         }
-                        
-                        recentQuestion.insert(questionModel.getRandomQuestion(), at: 0)
-                        print("Refresh")
                     }
                 } else {
                     ZStack(alignment: .leading) {
@@ -170,6 +172,10 @@ struct MyAnswerView: View {
             .background(.backGround)
             .onAppear {
                 isLogin = loginViewModel.isSignedIn
+                Task {
+                    await questionModel.loadMyAnsweredQuestion()
+                }
+                recentQuestion = questionModel.answeredQuestions
             }
         }
     }
