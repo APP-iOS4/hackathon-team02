@@ -18,15 +18,11 @@ class QuestionViewModel: ObservableObject {
     init() {
         Task {
             await fetchQuestions()
-            print("패치 완료")
         }
     }
     
     /// 파이어베이스에서 문제 데이터 가져오기
     private func loadQuestions() async {
-        
-        // MARK: - Firebase의 Cloud Firestore에서 읽기
-        
         do {
             let dataBase = Firestore.firestore()
             let snapshots = try await dataBase.collection("Questions").getDocuments()
@@ -42,7 +38,7 @@ class QuestionViewModel: ObservableObject {
                 let newQuestion: QuestionData = QuestionData(id: id, question: question)
                 
                 print("\(newQuestion.question), \(newQuestion.id)")
-
+                
                 savedQuestions.append(newQuestion)
             }
             questions = savedQuestions
@@ -62,4 +58,68 @@ class QuestionViewModel: ObservableObject {
     func getRandomQuestion() -> QuestionData {
         return questions.randomElement() ?? QuestionData(id: "error", question: "저장된 질문이 없습니다.")
     }
+    
+    
+    
+    /// 내 답을 추가하는 함수
+    /// - Parameters answer: 답 내용
+    /// - Parameters userID: 유저 ID값(Email이 아닌 id값을 넣어주셔야 합니다.)
+    /// - Parameters questionID: 문제 ID값
+    func addAnswer(answer: String, userID: String, questionID: String) {
+        // Firebase의 Cloud Firestore에 새로운 답변 추가
+        Task {
+            do {
+                let dataBase = Firestore.firestore()
+                try await dataBase.collection("Questions").document(questionID).collection("Answer").document(userID).setData([
+                    "answer": answer
+                ])
+            } catch {
+                print("Error writing document: \(error)")
+            }
+        }
+    }
+    
+    /// 나의 답을 리턴하는 함수
+    /// 답변을 하지 않았을 때 ""를 리턴한다.
+    func loadMyAnswer(questionID: String, userID: String) async -> String {
+        var myAnswer: String = ""
+        
+        do {
+            let dataBase = Firestore.firestore()
+            let snapshots = try await dataBase.collection("Questions").document(questionID).collection("Answer").getDocuments()
+            for doc in snapshots.documents {
+                if doc.documentID == userID {
+                    myAnswer = doc["answer"] as? String ?? ""
+                }
+            }
+        } catch {
+            print("Error getting documents: \(error)")
+        }
+        return myAnswer
+    }
+    
+    /// (나의 답을 제외한)모든 답을 리턴하는 함수
+    func loadOthersAnswer(questionID: String, userID: String) async -> [String] {
+        var othersAnswer: [String] = []
+        
+        do {
+            let dataBase = Firestore.firestore()
+            let snapshots = try await dataBase.collection("Questions").document(questionID).collection("Answer").getDocuments()
+            
+            print(snapshots.count)
+            
+            for doc in snapshots.documents {
+                if doc.documentID != userID {
+                    othersAnswer.append(doc["answer"] as? String ?? "")
+                }
+            }
+        } catch {
+            print("Error getting documents: \(error)")
+        }
+        
+        print("\(othersAnswer)")
+        
+        return othersAnswer
+    }
+    
 }
