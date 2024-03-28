@@ -136,9 +136,11 @@ struct MoreInfoView: View {
             .background(.backGround)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Text("더 보기")
-                        .fontWeight(.bold)
-                        .foregroundStyle(.text)
+                    Text("More Info")
+                        .font(.title)
+                        .fontWeight(.semibold)
+                        .fontDesign(.monospaced)
+                        .foregroundStyle(.accent)
                 }
             }
         }

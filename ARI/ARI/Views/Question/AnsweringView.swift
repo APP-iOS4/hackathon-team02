@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct AnsweringView: View {
+    @EnvironmentObject private var questionModel: QuestionViewModel
+    @EnvironmentObject private var loginViewModel: LoginViewModel
+    
     @Environment(\.dismiss) private var dismiss
     
     @State private var answering = "답변을 입력해주세요."
     @State private var isShowingAlert = false
     
     @Binding var question: String
+    @Binding var questionID: String
     @Binding var isSubmitAnswer: Bool
     
     var placeholder = "답변을 입력해주세요."
@@ -54,6 +58,7 @@ struct AnsweringView: View {
                     }
                 
                 Button(action: {
+                    questionModel.addAnswer(answer: answering, userID: loginViewModel.userInfo?.id ?? "Unknown", questionID: questionID)
                     isSubmitAnswer.toggle()
                     dismiss()
                 }, label: {
@@ -101,6 +106,6 @@ struct AnsweringView: View {
 }
 
 #Preview {
-    AnsweringView(question: .constant("struct와 class의 차이를 설명하시오."), isSubmitAnswer: .constant(false))
+    AnsweringView(question: .constant("struct와 class의 차이를 설명하시오."), questionID: .constant("basicID"), isSubmitAnswer: .constant(false))
         .preferredColorScheme(.dark)
 }

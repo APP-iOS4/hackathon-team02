@@ -26,9 +26,16 @@ final class QuestionUserDefaultsClient: ObservableObject {
         }
     }
     
+    @Published var questionID: String = UserDefaults.standard.string(forKey: Key.questionID.rawValue) ?? "errorID" {
+        didSet {
+            UserDefaults.standard.set(questionID, forKey: Key.questionID.rawValue)
+        }
+    }
+    
     enum Key: String {
         case isSubmitAnswer
         case question
         case isCheckingQuestion
+        case questionID
     }
 }

@@ -28,8 +28,7 @@ struct QuestionView: View {
             return "Unknown"
         }
     }
-    
-    @State var question = ""
+
     @State private var remainingHours = 0
     @State private var remainingMinutes = 0
     @State private var remainingSeconds = 0
@@ -63,7 +62,7 @@ struct QuestionView: View {
                 
                 HStack {
                     Text("\(userNickname)")
-                    Text("~ % today question")
+                    Text("~ % question --today")
                 }
                 
                 Text("Remaining time: \(remainingHours):\(remainingMinutes):\(remainingSeconds)")
@@ -76,11 +75,12 @@ struct QuestionView: View {
                     .fontDesign(.monospaced)
                     .foregroundStyle(Color.accent)
                     .font(.subheadline)
+                    .padding(.top, 30)
+                    
             }
             .fontDesign(.monospaced)
             .foregroundStyle(Color.accent)
             .font(.subheadline)
-            .padding(.bottom, 30)
             
             Spacer()
             
@@ -101,6 +101,7 @@ struct QuestionView: View {
                         
                     }
                     .font(.title)
+                    .fontWeight(.semibold)
                     .fontDesign(.monospaced)
                     .foregroundStyle(Color.accent)
                     .minimumScaleFactor(0.5)
@@ -114,9 +115,6 @@ struct QuestionView: View {
                 Text("test")
             }
             */
-            
-            
-            
             
             HStack {
                 if questionUserDefaultsClient.isSubmitAnswer {
@@ -143,10 +141,11 @@ struct QuestionView: View {
                     }
                     
                     questionUserDefaultsClient.question = questionModel.getRandomQuestion().question
+                    questionUserDefaultsClient.questionID = questionModel.getRandomQuestion().id
                     questionUserDefaultsClient.isCheckingQuestion.toggle()
                 } else if questionUserDefaultsClient.isSubmitAnswer {
                     // MARK: - 임시
-                    questionUserDefaultsClient.isSubmitAnswer.toggle()
+                    // questionUserDefaultsClient.isSubmitAnswer.toggle()
                     selectedPage = 1
                 } else if questionUserDefaultsClient.isSubmitAnswer == false && isLogin == true {
                     isShowingAnsweringView.toggle()
@@ -171,6 +170,7 @@ struct QuestionView: View {
         
         .sheet(isPresented: $isShowingAnsweringView) {
             AnsweringView(question: $questionUserDefaultsClient.question,
+                          questionID: $questionUserDefaultsClient.questionID,
                           isSubmitAnswer: $questionUserDefaultsClient.isSubmitAnswer)
         }
         
@@ -224,16 +224,21 @@ extension QuestionView {
             formatter.dateStyle = .medium
             
             let savedTimeString = formatter.string(from: savedTime)
+            // 테스트를 하고 싶다면 Date() 뒤에다가 초를 더해주자.
             let currentTime = formatter.string(from: Date())
 
-            var isFetchingData = (savedTimeString == currentTime)
+            let isRandomQuestion = (savedTimeString == currentTime)
             
-            if isFetchingData {
+            if isRandomQuestion {
                 print("문제를 유지합니다.")
             } else {
-                questionUserDefaultsClient.question = questionModel.getRandomQuestion().question
+                let question = questionModel.getRandomQuestion()
+                
+                questionUserDefaultsClient.question = question.question
+                questionUserDefaultsClient.questionID = question.id
                 questionUserDefaultsClient.isCheckingQuestion = false
                 questionUserDefaultsClient.isSubmitAnswer = false
+                
                 print("문제가 변경되었습니다.")
             }
         }
@@ -242,20 +247,11 @@ extension QuestionView {
     func calculateRemainingTime() {
            let now = Date()
            let calendar = Calendar.current
-           let midnight = calendar.startOfDay(for: now).addingTimeInterval(24 * 60 * 60) // 자정
+           let midnight = calendar.startOfDay(for: now).addingTimeInterval(24 * 60 * 60)
            
            let components = calendar.dateComponents([.hour, .minute, .second], from: now, to: midnight)
            remainingHours = components.hour ?? 0
            remainingMinutes = components.minute ?? 0
            remainingSeconds = components.second ?? 0
        }
-    
-//    func timeString(from timeInterval: TimeInterval) -> String {
-//        let formatter = DateComponentsFormatter()
-//        formatter.unitsStyle = .full
-//        formatter.allowedUnits = [.hour, .minute, .second]
-//        formatter.zeroFormattingBehavior = .pad
-//        
-//        return formatter.string(from: timeInterval) ?? ""
-//    }
 }

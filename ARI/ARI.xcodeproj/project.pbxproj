@@ -21,13 +21,12 @@
 		3BE8ADC22BB40AA7005919CF /* QuestionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8ADC12BB40AA7005919CF /* QuestionData.swift */; };
 		3BE8ADC52BB40ACD005919CF /* QuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8ADC42BB40ACD005919CF /* QuestionViewModel.swift */; };
 		3BE8ADC72BB40B85005919CF /* DataTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8ADC62BB40B85005919CF /* DataTestView.swift */; };
-		423ED8F32BB453800009608E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 423ED8F22BB453800009608E /* FirebaseAuth */; };
-		423ED8F52BB4538D0009608E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 423ED8F42BB4538D0009608E /* FirebaseFirestore */; };
-		423ED8F72BB4538D0009608E /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 423ED8F62BB4538D0009608E /* FirebaseFirestoreSwift */; };
-		423ED8F92BB453990009608E /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 423ED8F82BB453990009608E /* GoogleSignIn */; };
-		423ED8FB2BB453990009608E /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 423ED8FA2BB453990009608E /* GoogleSignInSwift */; };
 		423ED8FD2BB472330009608E /* QuestionUserDefaultsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423ED8FC2BB472330009608E /* QuestionUserDefaultsClient.swift */; };
-		423ED8FF2BB476F10009608E /* QuestionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423ED8FE2BB476F10009608E /* QuestionStore.swift */; };
+		428CED352BB53C4D00E8210B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 428CED342BB53C4D00E8210B /* FirebaseAuth */; };
+		428CED372BB53C5400E8210B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 428CED362BB53C5400E8210B /* FirebaseFirestore */; };
+		428CED392BB53C5400E8210B /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 428CED382BB53C5400E8210B /* FirebaseFirestoreSwift */; };
+		428CED3B2BB53C5A00E8210B /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 428CED3A2BB53C5A00E8210B /* GoogleSignIn */; };
+		428CED3D2BB53C5A00E8210B /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 428CED3C2BB53C5A00E8210B /* GoogleSignInSwift */; };
 		42A7E69F2BB4101A00AB9DED /* AnsweringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A7E69E2BB4101A00AB9DED /* AnsweringView.swift */; };
 		42A7E6A12BB4102F00AB9DED /* AccentColorButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A7E6A02BB4102F00AB9DED /* AccentColorButtonView.swift */; };
 		9B2B3CB42BB3DF5C00EFBAE1 /* AnswerLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2B3CB32BB3DF5C00EFBAE1 /* AnswerLabelView.swift */; };
@@ -57,7 +56,6 @@
 		3BE8ADC42BB40ACD005919CF /* QuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewModel.swift; sourceTree = "<group>"; };
 		3BE8ADC62BB40B85005919CF /* DataTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTestView.swift; sourceTree = "<group>"; };
 		423ED8FC2BB472330009608E /* QuestionUserDefaultsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionUserDefaultsClient.swift; sourceTree = "<group>"; };
-		423ED8FE2BB476F10009608E /* QuestionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionStore.swift; sourceTree = "<group>"; };
 		42A7E69E2BB4101A00AB9DED /* AnsweringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsweringView.swift; sourceTree = "<group>"; };
 		42A7E6A02BB4102F00AB9DED /* AccentColorButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentColorButtonView.swift; sourceTree = "<group>"; };
 		9B2B3CB32BB3DF5C00EFBAE1 /* AnswerLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerLabelView.swift; sourceTree = "<group>"; };
@@ -74,11 +72,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				423ED8FB2BB453990009608E /* GoogleSignInSwift in Frameworks */,
-				423ED8F32BB453800009608E /* FirebaseAuth in Frameworks */,
-				423ED8F92BB453990009608E /* GoogleSignIn in Frameworks */,
-				423ED8F52BB4538D0009608E /* FirebaseFirestore in Frameworks */,
-				423ED8F72BB4538D0009608E /* FirebaseFirestoreSwift in Frameworks */,
+				428CED3D2BB53C5A00E8210B /* GoogleSignInSwift in Frameworks */,
+				428CED352BB53C4D00E8210B /* FirebaseAuth in Frameworks */,
+				428CED3B2BB53C5A00E8210B /* GoogleSignIn in Frameworks */,
+				428CED372BB53C5400E8210B /* FirebaseFirestore in Frameworks */,
+				428CED392BB53C5400E8210B /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,7 +90,6 @@
 				42A7E69E2BB4101A00AB9DED /* AnsweringView.swift */,
 				42A7E6A02BB4102F00AB9DED /* AccentColorButtonView.swift */,
 				423ED8FC2BB472330009608E /* QuestionUserDefaultsClient.swift */,
-				423ED8FE2BB476F10009608E /* QuestionStore.swift */,
 			);
 			path = Question;
 			sourceTree = "<group>";
@@ -232,11 +229,11 @@
 			);
 			name = ARI;
 			packageProductDependencies = (
-				423ED8F22BB453800009608E /* FirebaseAuth */,
-				423ED8F42BB4538D0009608E /* FirebaseFirestore */,
-				423ED8F62BB4538D0009608E /* FirebaseFirestoreSwift */,
-				423ED8F82BB453990009608E /* GoogleSignIn */,
-				423ED8FA2BB453990009608E /* GoogleSignInSwift */,
+				428CED342BB53C4D00E8210B /* FirebaseAuth */,
+				428CED362BB53C5400E8210B /* FirebaseFirestore */,
+				428CED382BB53C5400E8210B /* FirebaseFirestoreSwift */,
+				428CED3A2BB53C5A00E8210B /* GoogleSignIn */,
+				428CED3C2BB53C5A00E8210B /* GoogleSignInSwift */,
 			);
 			productName = ARI;
 			productReference = 3B32CB982BB3BFA1002484AB /* ARI.app */;
@@ -302,7 +299,6 @@
 				42A7E6A12BB4102F00AB9DED /* AccentColorButtonView.swift in Sources */,
 				3B32CB9E2BB3BFA1002484AB /* ContentView.swift in Sources */,
 				3BE8ADBF2BB40A8C005919CF /* MoreInfoView.swift in Sources */,
-				423ED8FF2BB476F10009608E /* QuestionStore.swift in Sources */,
 				3B2B035E2BB3D10C009B1DEA /* QuestionView.swift in Sources */,
 				3BE8ADC72BB40B85005919CF /* DataTestView.swift in Sources */,
 				3BADFB732BB4316500F52A84 /* LoginState.swift in Sources */,
@@ -555,27 +551,27 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		423ED8F22BB453800009608E /* FirebaseAuth */ = {
+		428CED342BB53C4D00E8210B /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3B32CBB52BB3D098002484AB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		423ED8F42BB4538D0009608E /* FirebaseFirestore */ = {
+		428CED362BB53C5400E8210B /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3B32CBB52BB3D098002484AB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		423ED8F62BB4538D0009608E /* FirebaseFirestoreSwift */ = {
+		428CED382BB53C5400E8210B /* FirebaseFirestoreSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3B32CBB52BB3D098002484AB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
 		};
-		423ED8F82BB453990009608E /* GoogleSignIn */ = {
+		428CED3A2BB53C5A00E8210B /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3BE8ADB42BB40A32005919CF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignIn;
 		};
-		423ED8FA2BB453990009608E /* GoogleSignInSwift */ = {
+		428CED3C2BB53C5A00E8210B /* GoogleSignInSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3BE8ADB42BB40A32005919CF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;

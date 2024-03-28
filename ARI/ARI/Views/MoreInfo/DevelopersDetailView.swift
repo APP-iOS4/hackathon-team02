@@ -58,7 +58,7 @@ struct DevelopersDetailView: View {
                 
             }
             .font(.subheadline)
-            .foregroundStyle(.text)
+            .foregroundStyle(.accent)
             .padding(15)
         }
         .fontDesign(.monospaced)
