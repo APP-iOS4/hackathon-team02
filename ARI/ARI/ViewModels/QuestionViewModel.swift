@@ -14,6 +14,7 @@ import FirebaseFirestore
 
 class QuestionViewModel: ObservableObject {
     private var questions: [QuestionData] = []
+    var answeredQuestions: [QuestionData] = []
     
     init() {
         Task {
@@ -30,17 +31,19 @@ class QuestionViewModel: ObservableObject {
             var savedQuestions: [QuestionData] = []
             
             for document in snapshots.documents {
+                // id = 문제 id값
                 let id: String = document.documentID
                 
+                // question = 문제 내용
                 let docData = document.data()
                 let question: String = docData["question"] as? String ?? ""
                 
+                // 문제 인스턴스 생성 후 savedQuestions에 저장
                 let newQuestion: QuestionData = QuestionData(id: id, question: question)
-                
-                print("\(newQuestion.question), \(newQuestion.id)")
-                
                 savedQuestions.append(newQuestion)
             }
+            
+            // 파이어 베이스에서 받아온 데이터 할당
             questions = savedQuestions
         } catch {
             print("Error getting documents: \(error)")
@@ -122,4 +125,9 @@ class QuestionViewModel: ObservableObject {
         return othersAnswer
     }
     
+    func loadMyAnsweredQuestion() {
+        var myAnsweredQuestion: [QuestionData] = []
+        
+        
+    }
 }
