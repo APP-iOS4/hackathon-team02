@@ -29,7 +29,7 @@ struct MyAnswerView: View {
                 if isLogin {
                     HStack {
                         ZStack(alignment: .center) {
-                            Text("최근 답변")
+                            Text("나의 답변")
                                 .fontWeight(.bold)
                                 .foregroundStyle(isShowingRecent ? .accent : .text )
                                 .background{
@@ -83,7 +83,7 @@ struct MyAnswerView: View {
                             .padding(EdgeInsets(top: 15, leading: 10, bottom: 0, trailing: 10))
                             if isShowingRecent {
                                 ForEach(recentQuestion.indices, id: \.self) { index in
-                                    NavigationLink(destination: AnswerDetailView(answer: recentQuestion[index].question)) {
+                                    NavigationLink(destination: AnswerDetailView(answer: recentQuestion[index], selectedQuestionIndex: recentQuestion.count - index - 1)) {
                                         AnswerLabelView(number: recentQuestion.count - index - 1, question: recentQuestion[index].question)
                                     }
                                     .contextMenu {
@@ -96,7 +96,7 @@ struct MyAnswerView: View {
                                 }
                             } else {
                                 ForEach(favoriteQuestion.indices, id: \.self) { index in
-                                    NavigationLink(destination: AnswerDetailView(answer: favoriteQuestion[index].question)) {
+                                    NavigationLink(destination: AnswerDetailView(answer: favoriteQuestion[index], selectedQuestionIndex: recentQuestion.count - index - 1)) {
                                         AnswerLabelView(number: favoriteQuestion.count - index - 1, question: favoriteQuestion[index].question)
                                     }
                                     .contextMenu {
@@ -123,7 +123,7 @@ struct MyAnswerView: View {
                                 await questionModel.loadMyAnsweredQuestion()
                             }
                             
-                            recentQuestion = questionModel.answeredQuestions
+                            recentQuestion = questionModel.answeredQuestions.reversed()
                             // print("Refresh")
                         }
                     }
@@ -175,7 +175,7 @@ struct MyAnswerView: View {
                 Task {
                     await questionModel.loadMyAnsweredQuestion()
                 }
-                recentQuestion = questionModel.answeredQuestions
+                recentQuestion = questionModel.answeredQuestions.reversed()
             }
         }
     }

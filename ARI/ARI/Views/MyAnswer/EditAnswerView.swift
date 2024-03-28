@@ -11,7 +11,7 @@ struct EditAnswerView: View {
     @Environment(\.dismiss) var dismiss
     
     @Binding var isShowingEditView: Bool
-    @Binding var myAnswerExample: [String]
+    @Binding var myAnswer: String
     @Binding var recentQuestion: [QuestionData]
     @State private var editedAnswer: String = ""
     @State private var editHeight: CGFloat = .zero
@@ -49,7 +49,7 @@ struct EditAnswerView: View {
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("수정") {
-                            myAnswerExample[selectedAnswerIndex] = editedAnswer
+//                            myAnswerDummy[selectedAnswerIndex] = editedAnswer
                             isShowingEditView = false
                         }
                         .padding()
