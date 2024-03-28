@@ -28,7 +28,7 @@ struct MoreInfoView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVStack {
+                LazyVStack(spacing: 15) {
                     ZStack(alignment: .leading) {
                         RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
                             .foregroundStyle(.background2)
@@ -68,7 +68,6 @@ struct MoreInfoView: View {
                         }
                         .padding()
                     }
-                    
                     
                     ZStack(alignment: .leading) {
                         RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
