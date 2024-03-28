@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MyQuestionCell: View {
     var number: Int
-    var question: QuestionData
+    var question: String
     
     @State private var questionHeight: CGFloat = .zero
     
@@ -25,7 +25,7 @@ struct MyQuestionCell: View {
                     Text("#\(number)")
                         .foregroundStyle(.accent)
                         
-                    Text(question.question)
+                    Text(question)
                         .background(
                             GeometryReader { geometry in
                                 Color.clear.onAppear {

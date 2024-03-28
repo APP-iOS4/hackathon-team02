@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct AnswerDetailView: View {
-    var answer: String
-    @StateObject private var questionModel = QuestionViewModel()
-    @StateObject private var loginViewModel = LoginViewModel()
+    
+    var answer: QuestionData
+    @EnvironmentObject private var questionModel: QuestionViewModel
+    @EnvironmentObject private var loginViewModel: LoginViewModel
     
     @Namespace private var namespace
     @State private var isShowingEditView = false
-    @State private var selectedQuestionIndex: Int = 0
-    @State private var myAnswerExample: [String] = []
-    @State private var otherAnswerExample: [String] = []
+    @State var selectedQuestionIndex: Int = 0
+    @State private var myAnswer: String = "123"
+    @State private var othersAnswer: [String] = []
     
     @State private var recentQuestion: [QuestionData] = [.init(id: "123", question: "Example Recent Question")]
     
@@ -33,11 +34,8 @@ struct AnswerDetailView: View {
                     .padding(EdgeInsets(top: 20, leading: 10, bottom: 0, trailing: 10))
                     
                     // MARK: - 문제
-                    if !recentQuestion.isEmpty {
-                        MyQuestionCell(number: 0, question: recentQuestion[0])
-                    } else {
-                        Text("문제가 없습니다")
-                    }
+                    MyQuestionCell(number: selectedQuestionIndex, question: answer.question)
+                    
                     
                     HStack {
                         Text("myAnswer()")
@@ -46,13 +44,12 @@ struct AnswerDetailView: View {
                     }
                     
                     // MARK: - 내 답변
-                    if selectedQuestionIndex < myAnswerExample.count {
-                        AnswerCell(answer: myAnswerExample[selectedQuestionIndex])
-                            .padding(.bottom, 30)
-                    } else {
-                        AnswerCell(answer: "답변이 없습니다")
-                            .padding(.bottom, 30)
-                    }
+                    AnswerCell(answer: myAnswer)
+                        .padding(.bottom, 30)
+                    //                    } else {
+                    //                        AnswerCell(answer: )
+                    //                            .padding(.bottom, 30)
+                    //                    }
                     Spacer()
                     
                     HStack {
@@ -63,14 +60,9 @@ struct AnswerDetailView: View {
                     
                     // MARK: - 다른 사람 답변
                     LazyVStack {
-                        ForEach(recentQuestion.indices, id: \.self) { index in
-                            if selectedQuestionIndex < otherAnswerExample.count {
-                                AnswerCell(answer: otherAnswerExample[selectedQuestionIndex])
-                                    .padding(.bottom, 30)
-                            } else {
-                                AnswerCell(answer: "답변이 없습니다")
-                                    .padding(.bottom, 30)
-                            }
+                        ForEach(othersAnswer.indices, id: \.self) { index in
+                            AnswerCell(answer: othersAnswer[index])
+                                .padding(.bottom, 30)
                         }
                     }
                     HStack {
@@ -87,56 +79,54 @@ struct AnswerDetailView: View {
             }
             .padding(1)
             .fontDesign(.monospaced)
+            .background(Color.backGround)
         }
         .onAppear {
             Task {
                 if let userID = loginViewModel.userInfo?.id {
-                    let myAnswer = await questionModel.loadMyAnswer(questionID: recentQuestion[selectedQuestionIndex].id, userID: userID)
-                    let othersAnswer = await questionModel.loadOthersAnswer(questionID: recentQuestion[selectedQuestionIndex].id, userID: userID)
-                    
-                    myAnswerExample = [myAnswer]
-                    otherAnswerExample = othersAnswer
+                    myAnswer = await questionModel.loadMyAnswer(questionID: answer.id, userID: userID)
+                    othersAnswer = await questionModel.loadOthersAnswer(questionID: answer.id, userID: userID)
                 } else {
                     print("유저 정보 없음")
                 }
             }
         }
-        .navigationTitle("최근 답변")
+        .navigationTitle("나의 답변")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            if !myAnswerExample.isEmpty && loginViewModel.isSignedIn {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu {
-                        Button(action: {
-                            isShowingEditView.toggle()
-                        }, label: {
-                            Label("수정하기", systemImage: "square.and.pencil")
-                        })
-                        Button(role: .destructive) {
-                            // TODO: - 삭제 기능 추가
-                        } label: {
-                            Label("삭제하기", systemImage: "trash")
-                        }
+            //            if !myAnswerDummy.isEmpty && loginViewModel.isSignedIn {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Menu {
+                    Button(action: {
+                        isShowingEditView.toggle()
+                    }, label: {
+                        Label("수정하기", systemImage: "square.and.pencil")
+                    })
+                    Button(role: .destructive) {
+                        // TODO: - 삭제 기능 추가
                     } label: {
-                        Image(systemName: "ellipsis")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 15)
-                            .rotationEffect(.degrees(90))
-                            .foregroundStyle(.accent)
+                        Label("삭제하기", systemImage: "trash")
                     }
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 15)
+                        .rotationEffect(.degrees(90))
+                        .foregroundStyle(.accent)
                 }
             }
+            //            }
         }
-        .fullScreenCover(isPresented: $isShowingEditView) {
-            EditAnswerView(isShowingEditView: $isShowingEditView, myAnswerExample: $myAnswerExample, recentQuestion: $recentQuestion, selectedAnswerIndex: selectedQuestionIndex)
-        }
+        //        .fullScreenCover(isPresented: $isShowingEditView) {
+        //            EditAnswerView(isShowingEditView: $isShowingEditView, my: $myAnswerDummy, recentQuestion: $recentQuestion, selectedAnswerIndex: selectedQuestionIndex)
+        //        }
     }
 }
 
-#Preview {
-    AnswerDetailView(answer: "123")
-               .preferredColorScheme(.dark)
-               .environmentObject(LoginViewModel())
-               .environmentObject(QuestionViewModel())
-}
+//#Preview {
+//    AnswerDetailView(answer: "123")
+//               .preferredColorScheme(.dark)
+//               .environmentObject(LoginViewModel())
+//               .environmentObject(QuestionViewModel())
+//}
