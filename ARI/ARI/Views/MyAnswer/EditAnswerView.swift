@@ -12,7 +12,7 @@ struct EditAnswerView: View {
     
     @Binding var isShowingEditView: Bool
     @Binding var myAnswerExample: [String]
-    @Binding var recentQuestion: QuestionData
+    @Binding var recentQuestion: [QuestionData]
     @State private var editedAnswer: String = ""
     @State private var editHeight: CGFloat = .zero
 

@@ -8,50 +8,42 @@
 import SwiftUI
 
 struct AnswerDetailView: View {
-    
     var answer: String
-    @EnvironmentObject private var questionModel: QuestionViewModel
-    @EnvironmentObject private var loginViewModel: LoginViewModel
+    @StateObject private var questionModel = QuestionViewModel()
+    @StateObject private var loginViewModel = LoginViewModel()
     
-    @Environment(\.dismiss) var dismiss
-    
-    @State var question: QuestionData = QuestionData(id: "d", question: "qq")
-    
+    @Namespace private var namespace
     @State private var isShowingEditView = false
-    @State private var isLogin = false
-    @State var selectedQuestionIndex: Int = 0
-    @State var recentQuestion: QuestionData
+    @State private var selectedQuestionIndex: Int = 0
+    @State private var myAnswerExample: [String] = []
+    @State private var otherAnswerExample: [String] = []
     
-    @Binding var myAnswerExample: [String]
-    @Binding var otherAnswerExample: [String]
-    
+    @State private var recentQuestion: [QuestionData] = [.init(id: "123", question: "Example Recent Question")]
     
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
                     HStack {
-                        Text("for question in questions {") // 코드 블록 시작 부분 표시
+                        Text("for question in \(recentQuestion.map { $0.question }) {")
+                            .font(.subheadline)
                             .foregroundStyle(.accent)
                         Spacer()
                     }
-                    .padding(.vertical, 20)
+                    .padding(EdgeInsets(top: 20, leading: 10, bottom: 0, trailing: 10))
                     
-                    // MARK: - 질문
-                    if !recentQuestion.question.isEmpty {
-                        MyQuestionCell(number: 0, question: recentQuestion)
+                    if !recentQuestion.isEmpty {
+                        MyQuestionCell(number: 0, question: recentQuestion[0])
                     } else {
                         Text("문제가 없습니다")
                     }
                     
                     HStack {
-                        Text("myAnswer()") // 사용자 답변 표시
+                        Text("myAnswer()")
                             .foregroundStyle(.accent)
                         Spacer()
                     }
                     
-                    // MARK: - 답변
-                    // 선택된 질문 인덱스와 답변의 수 비교
                     if selectedQuestionIndex < myAnswerExample.count {
                         AnswerCell(answer: myAnswerExample[selectedQuestionIndex])
                             .padding(.bottom, 30)
@@ -62,47 +54,55 @@ struct AnswerDetailView: View {
                     Spacer()
                     
                     HStack {
-                        Text("otherAnswer()") // 다른 답변 표시
+                        Text("otherAnswer()")
                             .foregroundStyle(.accent)
                         Spacer()
                     }
                     
                     LazyVStack {
-                        //                        ForEach(recentQuestion) { question in
-                        //                                if selectedQuestionIndex < otherAnswerExample.count {
-                        //                                    AnswerCell(answer: otherAnswerExample[selectedQuestionIndex])
-                        //                                        .padding(.bottom, 30)
-                        //                                } else {
-                        //                                    AnswerCell(answer: "답변이 없습니다")
-                        //                                        .padding(.bottom, 30)
-                        //                                }
-                        //                            }
+                        ForEach(recentQuestion.indices, id: \.self) { index in
+                            if selectedQuestionIndex < otherAnswerExample.count {
+                                AnswerCell(answer: otherAnswerExample[selectedQuestionIndex])
+                                    .padding(.bottom, 30)
+                            } else {
+                                AnswerCell(answer: "답변이 없습니다")
+                                    .padding(.bottom, 30)
+                            }
+                        }
                     }
                     HStack {
                         Text("}⌷")
+                            .font(.subheadline)
                             .foregroundStyle(.accent)
                         Spacer()
                     }
-                    .padding(.vertical, 20)
+                    .padding(EdgeInsets(top: 20, leading: 10, bottom: 20, trailing: 10))
                 }
                 .fontDesign(.monospaced)
-                .toolbar(.hidden, for: .tabBar)
+                .background(Color.backGround)
                 .padding(10)
             }
             .padding(1)
             .fontDesign(.monospaced)
-            .background(.backGround)
         }
-        .task {
-            let getRandomQuestion = await questionModel.getRandomQuestion()
-            DispatchQueue.main.async {
-                recentQuestion = getRandomQuestion
-                
+        .onAppear {
+            Task {
+                if let userID = loginViewModel.userInfo?.id {
+                    let myAnswer = await questionModel.loadMyAnswer(questionID: recentQuestion[selectedQuestionIndex].id, userID: userID)
+                    let othersAnswer = await questionModel.loadOthersAnswer(questionID: recentQuestion[selectedQuestionIndex].id, userID: userID)
+                    
+                    myAnswerExample = [myAnswer]
+                    otherAnswerExample = othersAnswer
+                } else {
+                    print("유저 정보 없음")
+                }
             }
         }
+        .navigationTitle("최근 답변")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            if selectedQuestionIndex < myAnswerExample.count && isLogin == true {
-                ToolbarItem(placement: .topBarTrailing) {
+            if !myAnswerExample.isEmpty && loginViewModel.isSignedIn {
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
                         Button(action: {
                             isShowingEditView.toggle()
@@ -110,7 +110,7 @@ struct AnswerDetailView: View {
                             Label("수정하기", systemImage: "square.and.pencil")
                         })
                         Button(role: .destructive) {
-                            dismiss()
+                            // TODO: - 삭제 기능 추가
                         } label: {
                             Label("삭제하기", systemImage: "trash")
                         }
@@ -124,17 +124,16 @@ struct AnswerDetailView: View {
                     }
                 }
             }
-            
         }
-        .navigationTitle("최근 답변")
-        .navigationBarTitleDisplayMode(.inline)
         .fullScreenCover(isPresented: $isShowingEditView) {
             EditAnswerView(isShowingEditView: $isShowingEditView, myAnswerExample: $myAnswerExample, recentQuestion: $recentQuestion, selectedAnswerIndex: selectedQuestionIndex)
         }
     }
 }
 
-//#Preview {
-//    AnswerDetailView(answer: "123", myAnswerExample: .constant["Asd"], otherAnswerExample: .constant["Asd"])
-//        .preferredColorScheme(.dark)
-//}
+#Preview {
+    AnswerDetailView(answer: "123")
+               .preferredColorScheme(.dark)
+               .environmentObject(LoginViewModel())
+               .environmentObject(QuestionViewModel())
+}
