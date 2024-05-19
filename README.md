@@ -50,6 +50,13 @@ iOS 개발자 취업을 준비하는 사람들에게 면접에 대한 준비를 
 <br/>
 
 ### 설치 및 실행 방법
+```
+프로젝트 빌드 시 GoogleService-Info.plist 파일이 필요합니다.
+위의 두 파일은 본 프로젝트 실행 시 spdlqjrkdrjs@naver.com으로 요청해주세요.
+
+FirestoreDatabase 및 FirebaseStorage 생성 여부를 확인하세요.
+```
+
 1. Github Repository를 Clone합니다.<br>
    ```bash
    git clone https://github.com/APP-iOS4/hackathon-team02.git
